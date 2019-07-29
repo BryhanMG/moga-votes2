@@ -63,7 +63,7 @@ export class ValidarVotanteComponent implements OnInit, OnDestroy {
     this.formGroup = this._formBuilder.group({
       idU: ['', Validators.required],
       nombre: ['', Validators.required],
-      correo: ['', Validators.required],
+      correo: [''],
       noMaquina: ['', Validators.required],
       estado: ['', Validators.required]
     }); 
