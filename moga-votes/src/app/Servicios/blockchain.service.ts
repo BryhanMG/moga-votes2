@@ -8,7 +8,7 @@ import { EmitirVoto, CandidatoBC, Voto  } from "src/app/Modelo/modelosBC";
   providedIn: 'root'
 })
 export class BlockchainService {
-  readonly URL_API = 'https://ec2-3-84-251-40.compute-1.amazonaws.com:3000/api/';
+  readonly URL_API = 'http://35.224.231.132:3000/api/';
 
 
   constructor(private http: HttpClient) { }
