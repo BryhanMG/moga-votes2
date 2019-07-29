@@ -45,7 +45,7 @@ export class BlockchainService {
     let c = Md5.hashStr(idC.toString()+idE);
     //let voto = new Voto(e.toString(), rol, idC);
     let voto = {votoId: e.toString(), candidato: c.toString()};
-    return this.http.post(this.URL_API+'Voto', voto);
+    return this.http.post(this.URL_API+'org.moga.Voto', voto);
   }
   
 
