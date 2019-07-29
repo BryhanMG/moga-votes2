@@ -15,8 +15,9 @@ app.set('port', process.env.PORT || 5000);
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors({origin: '*'}));
 //app.use(cors({origin: 'http://localhost:3000'}));
-app.use(cors({origin: 'https://moga-votes.herokuapp.com/'}));
+//app.use(cors({origin: 'https://moga-votes.herokuapp.com/'}));
 //app.use(cors({origin: 'http://localhost:4200'}));
 
 // Routes
