@@ -1,0 +1,42 @@
+<html>
+  <head>Login MOGA</head>
+  <body>
+      <div class="login">
+          <div class="container "><h1 class="h1-login">Bienvenido a MOGA</h1></div>
+        </div>
+    <div class="container" style="margin-top:  4%">
+      
+      <div class="form-login col-md-6 offset-3">
+        <div class="container offset-md-3"><h3 style="color: #2E3238">Ingreso</h3></div>
+        <form [formGroup]="formGroup">
+          <div class="container offset-3">
+            <mat-form-field >
+                <input matInput type="text" placeholder="ID de ususario"  formControlName="idUser"  required/>
+            </mat-form-field>
+            <br>
+            <mat-form-field >
+                <input matInput type="password" placeholder="Contraseña" formControlName="password" (keyup.enter)="login()" required/>
+            </mat-form-field>
+          </div>
+          <div class="container offset-4" >
+            <button mat-raised-button color="primary" style="background: #2E3238" (click)="login()">Ingresar</button>
+          </div>
+        </form>
+          <div class="container offset-2">
+            {{mensaje}}
+          </div>
+          <div class="container" >
+            <button mat-raised-button color="primary" routerLink="/loginVotacion" style="background: #2E3238">Emision Voto</button>
+          </div>
+      </div>  
+        
+    </div>
+    
+  </body>
+  
+</html>
+<!--
+<div *ngIf="login;">
+    <app-menu-sidenav></app-menu-sidenav>
+</div>
+-->

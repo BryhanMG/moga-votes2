@@ -1,0 +1,68 @@
+<div class="header"></div>
+<div class="container" style="margin-top: 10%; margin-bottom: 10%;">
+  <h1>Validar Votante</h1>
+  <div class="form">
+  
+    <mat-form-field style="margin-right: 1%">
+      <input matInput placeholder="Código del participante" [(ngModel)]="codigo" (keyup.enter)="getVotante()">
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="background: #2E3238; width: 30px" (click)="getVotante()"><mat-icon>search</mat-icon></button>
+    <form [formGroup]="formGroup">
+      <div class="row">
+        <div class="col-md-6">
+          <label style="font-size: 20px">Nombre: {{formGroup.get('nombre').value}}</label>
+        </div>
+        <div class="col-md-6">
+          <label style="font-size: 20px">Código: {{formGroup.get('idU').value}}</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label style="font-size: 20px">Correo: {{formGroup.get('correo').value}}</label>
+        </div>
+        <div class="col-md-6">
+            <label style="font-size: 20px">Punto de votación: {{formGroup.get('noMaquina').value}}</label>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label style="font-size: 20px">Estado del voto: {{formGroup.get('estado').value}}</label>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+              <div class="col-md-6">
+                  <button mat-raised-button color="primary" style="background: #2E3238; width: 95%" (click)="validarVotante()" [disabled]="!formGroup.valid">Validar</button>
+              </div>
+              <div class="col-md-6">
+                  <button mat-raised-button color="primary" style="background: #2E3238; width: 95%;" (click)="limpiarinformacion()" [disabled]="!formGroup.valid">Limipar</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div >
+    
+    <mat-list style="width: 60%; margin-left: 15%" *ngFor="let maquina of maquinas">
+        <div class="row">
+          <div class="col-8 col-md-8 ">
+            <mat-list-item>
+              <a (click)="openDialog(maquina._id, maquina.codigo)">
+                <mat-icon matTooltip="Información">info</mat-icon>
+              </a>
+              Punto de votación No. {{maquina.numero}}
+            </mat-list-item>
+              
+          </div>
+          <div>
+            <label style="font-size: 20px">Estado: {{asignarEstadoMaquina(maquina.estado)}}</label>
+          </div> 
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+      </mat-list>
+  </div>
+
+</div>
+<div class="footer"></div>

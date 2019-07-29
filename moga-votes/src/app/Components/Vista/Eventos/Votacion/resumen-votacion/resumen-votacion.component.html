@@ -1,0 +1,140 @@
+<html>
+  <body>
+    <div class="header">
+      <div class="container"><h1 class="h1-resumen">{{evento.nombre_ev}}</h1></div>
+    </div>
+
+    <div class="container" style="padding: 2%">
+
+
+    <div class="form">
+      <div class="row">
+        
+        <div class="col-sm-6"><div class="titulo">ID: <div class="elementos">{{evento._id}}</div> </div></div>
+        <div class="col-sm-6"><div class="titulo">Tipo: <div class="elementos">Votación</div> </div></div>  
+        
+      </div>
+      <mat-divider style="width: 94%"></mat-divider>
+      <div class="row">
+        <div class="col-sm-6"><div class="titulo">Inicio: <div class="elementos">{{evento.fecha_i.substring(0, 10)}} ---- {{evento.fecha_i.substring(11, 16)}} Hrs.</div> </div></div>
+        <div class="col-sm-6"><div class="titulo">Fin: <div class="elementos">{{evento.fecha_f.substring(0, 10)}} ---- {{evento.fecha_f.substring(11, 16)}} Hrs.</div> </div></div>
+      </div>
+      <mat-divider style="width: 94%"></mat-divider>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="titulo">Estado: 
+            <div *ngIf="evento.estado ==='A'; else espera;">
+              <div class="elementos">Activo:<mat-icon style="color: green;">play_circle_filled</mat-icon></div>
+            </div>
+          </div>
+          </div>
+      </div>
+      <mat-divider style="width: 94%; margin-bottom: 1px"></mat-divider>
+      <mat-divider style="width: 94%; margin-bottom: 10px"></mat-divider>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-5"><button  class="button-size" mat-raised-button color="primary" routerLink="/editar-evento/{{evento._id}}/2" [disabled]="!(evento.estado==='E')">Editar</button></div>
+            <div class="col-md-5 "><button  class="button-size" mat-raised-button color="primary" style="background: crimson" [disabled]="!(evento.estado==='A')">Terminar</button></div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="row">
+            <!--[disabled]="evento.estado==='A' || evento.estado==='T'"-->
+            <div class="col-md-6"><button class="button-size" mat-raised-button color="primary" routerLink="/registro_v/{{evento._id}}" [disabled]="evento.estado==='A' || evento.estado==='T'">Registrar</button></div>
+            <div class="col-md-6"><button class="button-size" mat-raised-button color="primary" routerLink="/validarVotante/{{idEvento}}" [disabled]="evento.estado==='E' || evento.estado==='T'">Validar Votante</button></div>
+          </div>
+        </div>
+        
+        
+        
+      </div>
+      <br>
+    </div>
+    <br>
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+            <h3>Candidatos </h3>
+          </div>
+          <div class="col-2">
+            <button  class="button-size" mat-raised-button color="primary" [disabled]="!(evento.estado==='A')" (click)="getCandidatos()">Actualizar</button>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-principal">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let rol of roles">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h5>Candidatos a: {{rol.rol}}</h5>
+              </mat-panel-title>
+              <mat-panel-description>
+                
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-md-4">
+                  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                    <h6 style="padding: 2%">{{rol.descripcion}}</h6>
+                  </cdk-virtual-scroll-viewport>
+              </div>
+              <div class="col-md-8">
+                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Votos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let can of rol.arreglo">
+                            <td>{{can._id}}</td>
+                            <td>{{can.nombres}} {{can.apellidos}}</td>
+                            <td>{{can.votos}}</td>
+                          </tr>
+                      </tbody>
+                  </table>    
+                    
+                </cdk-virtual-scroll-viewport>
+          
+              </div>
+            </div>
+            
+            <br>
+            <div class="containter col-md-4 col-sm-5 col-lg-3" ><button class="button-size" mat-raised-button style="background: #2E3238; color: white; width: 100%" routerLink="/presentacion/{{idEvento}}/{{rol.rol}}">Modo presentacion</button></div>
+          </mat-expansion-panel>
+          
+        </mat-accordion>
+      </cdk-virtual-scroll-viewport>
+      <div style="margin-top: 2%">
+        <h3>Descripción</h3>
+        <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-principal" style="height: 150px">
+          <h5 style="padding: 2%">{{evento.descripcion}}</h5>
+        </cdk-virtual-scroll-viewport>
+      </div>
+      
+    </div>
+
+    <br>
+    <div class="footer" style=" height: 200px"></div>
+  </body>
+</html>
+<ng-template #espera>
+  <div *ngIf="estado==='E';else terminado;">
+      <div class="elementos">En espera: <mat-icon style="color: blue;">pause_circle_filled</mat-icon></div>
+  </div>
+</ng-template>
+<ng-template #terminado>
+    <div *ngIf="estado==='T';">
+        <div class="elementos">Terminado: <mat-icon style="color: red;">stop</mat-icon></div>
+    </div>
+</ng-template>

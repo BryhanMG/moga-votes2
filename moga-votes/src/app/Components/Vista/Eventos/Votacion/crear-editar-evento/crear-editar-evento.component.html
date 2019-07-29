@@ -1,0 +1,331 @@
+<div class="header-ce"><div class="container"><h1>Crear Evento</h1></div></div>
+<!--<button (click)="createEvento()">Crear</button>-->
+<div class="container">
+    <div class="form-ce">
+    <div >
+      <mat-horizontal-stepper linear="false" #stepper >
+        <!--Paso inicial de informacion general-->
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>General</ng-template>
+            <div class="row">
+              <div class="col-md-6" style="margin-top: 4%">
+                <mat-form-field>
+                  <input matInput placeholder="Nombre del evento" formControlName="nombreE"  required>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" style="margin-top: 4%">
+                <p>Tipo: Votacion</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" style="margin-top: 2%">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="dp1" placeholder="Fecha de inicio" formControlName="fechaI" required>
+                  <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                  <mat-datepicker #dp1 disabled="false" ></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" style="margin-top: 2%">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="dp2" placeholder="Fecha de finalizacion" formControlName="fechaF" required>
+                  <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+                  <mat-datepicker #dp2 disabled="false" ></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" style="margin-top: 2%">
+                  <mat-form-field>
+                      <input matInput atp-time-picker placeholder="Hora de inicio" formControlName="horaI" required>
+                  </mat-form-field>
+                
+              </div>
+              <div class="col-md-6" style="margin-top: 1%; margin-bottom: 2%">
+                  <mat-form-field>
+                      <input matInput atp-time-picker placeholder="Hora de finalizacion" formControlName="horaF" required>
+                  </mat-form-field>
+              </div>
+            </div>
+            <div>
+                <div class="md-form" >
+                  <label for="form7" >Descripción</label>
+                  
+                  <textarea type="text" id="form7" class="md-textarea form-control" mdbInput style="height: 190px;" formControlName="descripcion"></textarea>
+                  
+                </div>
+            </div>
+            <div style="margin-top: 2%">
+              <button mat-raised-button matStepperNext class="base" color="primary" (click)="obtenerFHIFHF()">Siguiente</button>
+            </div>
+          </form>
+        </mat-step>
+        <!--Paso de generacion de candidatos-->
+        <mat-step >
+          
+            <ng-template matStepLabel>Candidatos</ng-template>
+            <div>
+              <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" >
+                <mat-accordion >
+                  <mat-expansion-panel expanded="true">
+                    <!--Titulos-->
+                    <mat-expansion-panel-header style="background: rgb(210, 211, 216); ">
+                      <mat-panel-title style="color: white">
+                        Crear roles
+                      </mat-panel-title>
+                      
+                    </mat-expansion-panel-header>
+                    <!--campos del desplegable-->
+
+                    <div style="margin-top: 2%">
+                        <mat-form-field>
+                          <input matInput placeholder="* Rol del candidato" [(ngModel)]="rol">
+                        </mat-form-field>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="form7" style="margin-top: 5%">Descripción</label>
+                        <textarea type="text" id="form7" class="md-textarea form-control" mdbInput style="height: 150px;" [(ngModel)]="des"></textarea>
+                        <button mat-raised-button class="base" color="primary" style=" margin-top: 2%; margin-right: 1%" (click)="saveRol()">Guardar</button>
+                        <button mat-raised-button class="base" color="primary" style=" margin-top: 2%" (click)="cancelEdit()" [disabled]="cancel">Cancelar</button>
+                      </div>
+                      <div class="col-md-6">
+                          <label for="form7" style="margin-top: 5%">Lista de roles</label>
+                          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-principal" >
+                            <table  class="table" style="border: 1px solid #CFCFCF; width: 100%">
+                              <tbody *ngFor="let rol of roles">
+                                <tr >
+                                  <td style="width: 75%">{{rol.rol}}</td>
+                                  <td>
+                                    <a (click)="editRol(rol.id)">
+                                      <mat-icon>edit</mat-icon>
+                                    </a>
+                                    <a (click)="deleteRol(rol.id)">
+                                      <mat-icon>delete</mat-icon>
+                                    </a>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </cdk-virtual-scroll-viewport>
+                          
+                      </div>
+                    </div>
+                                      
+                  </mat-expansion-panel>
+
+                  <mat-expansion-panel >
+                      <!--Titulos-->
+                      <mat-expansion-panel-header style="background: rgb(210, 211, 216); ">
+                        <mat-panel-title style="color: white">
+                          Ingresar candidatos
+                        </mat-panel-title>
+                        
+                      </mat-expansion-panel-header>
+                      <!--campos del desplegable-->
+      
+                      <div class="row" style="margin-top: 2%">
+                        <div class="col-lg-4">
+                          <mat-form-field>
+                            <input matInput placeholder="Código" [(ngModel)]="idUsuario" (keyup.enter)="getUsuario(idUsuario, null, 1)">
+                          </mat-form-field>
+                          <button mat-raised-button class="base" color="primary" (click)="getUsuario(idUsuario, null, 1)"><mat-icon>search</mat-icon></button>
+                          <br>
+                          <label for="form7" style="margin-top: 5%; font-size: 20px">Detalles</label>
+                          <div><label style="margin-top: 5%; font-size: 18px">* Nombre: {{nombreU}} </label></div>
+                          <div><label style="margin-top: 5%; font-size: 18px">* Código: {{idU}} </label></div>
+                          <div>
+                            <mat-form-field >
+                              <mat-select placeholder="* Escoja un rol"  name="opRol" [(ngModel)]="opRol"  style="margin-top: 10%" >
+                                <mat-option  *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</mat-option>
+                              </mat-select>
+                              
+                            </mat-form-field>
+                            
+                          </div>
+                          <div> 
+                            <button mat-raised-button class="base" color="primary" (click)="seleccionarImagen()" [disabled]="!isImgActivo">* seleccionar imagen</button>
+                            <mat-icon style="color: green;" *ngIf="itemSelected">done_outline</mat-icon>
+                          </div>
+                        </div>  
+                        <div class="col-md-8">
+                            
+                            <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-informacion3" >
+                                <mat-accordion>
+                                  <mat-expansion-panel *ngFor="let rol of roles">
+                                    <!--Titulos-->
+                                    <mat-expansion-panel-header style="background: rgb(210, 211, 216); ">
+                                      <mat-panel-title style="color: white">
+                                        {{rol.rol}}
+                                      </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    
+                                        <table class="table">
+                                          <thead class="thead-dark">
+                                              <tr>
+                                                  <th scope="col">Código</th>
+                                                  <th scope="col">Nombre</th>
+                                                  <th scope="col"></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr *ngFor="let candidato of rol.candidatos">
+                                              <td style="font-size: 15px; padding-top: 2%">{{candidato.idU}}</td>
+                                              <td style="font-size: 15px; padding-top: 2%">{{candidato.nombreU}}</td>
+                                              <a (click)="deleteCandidato(candidato.idU, rol.id)">
+                                                <mat-icon>delete</mat-icon>
+                                              </a>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      
+                                  </mat-expansion-panel>  
+                                </mat-accordion>
+                              </cdk-virtual-scroll-viewport>
+                              <button mat-raised-button color="primary" style="background: #2E3238; margin-top: 3%; margin-right: 1%" (click)="saveCandidato()">Guardar</button>
+                              
+                        </div>
+                      </div>
+                      
+                                        
+                    </mat-expansion-panel>
+                </mat-accordion>
+                </cdk-virtual-scroll-viewport>
+            </div>
+            <div *ngIf="flagImage">
+                
+                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" >
+            
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="imgSeleccionada" >
+                        <mat-radio-button *ngFor="let img of imagenes" [value]="img.imagen" (click)="elegirImagen()"><img [src]="img.imagen"  style="width: 150px; height: 150px; padding-right: 10px" ></mat-radio-button>
+                        
+                    </mat-radio-group>
+                </cdk-virtual-scroll-viewport>
+                
+            </div>
+            
+            <div>
+              <button mat-raised-button matStepperPrevious class="base" color="primary">Regresar</button>
+              <button mat-raised-button matStepperNext class="base" color="primary" (click)="cargarCandidatos()">Siguiente</button>
+            </div>
+          
+        </mat-step>
+        <!--Paso de seleccion de responsables-->
+        <mat-step >
+            <ng-template matStepLabel>Responsables</ng-template>
+            <div class="container">
+              <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-responsables" >
+                <table class="table">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th scope="col">Código</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Estado</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let a of admins">
+                      <td style="font-size: 20px; padding-top: 2%">{{a.administrador._id}}</td>
+                      <td style="font-size: 20px; padding-top: 2%">{{a.nombres}} {{a.apellidos}}</td>
+                      <td>
+                        <button mat-raised-button class="base" color="primary" style=" margin-right: 20px" (click)="activarDesactivar(a)"><mat-icon>{{a.estado}}</mat-icon></button>
+                      </td>
+                    </tr>
+                  
+                  </tbody>
+                </table>
+              </cdk-virtual-scroll-viewport>
+              <div style="margin-top: 2%">
+                <button mat-raised-button class="base" color="primary" (click)="restarPV()"><mat-icon>remove</mat-icon></button>
+                <mat-form-field style="width: 175px; margin-right: 1%; font-size: 20px">
+                  <input matInput placeholder="No. de puntos de votación" disabled [value]="noPV">
+                </mat-form-field>
+                <button mat-raised-button class="base" color="primary" (click)="sumarPV()"><mat-icon>add</mat-icon></button>
+                
+              </div>
+            </div>
+            <div style="margin-top: 3%">
+                <button mat-raised-button matStepperPrevious class="base" color="primary">Regresar</button>
+                <button mat-raised-button matStepperNext class="base" color="primary" >Siguiente</button>
+              </div>
+        </mat-step >
+        <!--Paso final de verificacion de informacion-->
+        <mat-step >
+            <ng-template matStepLabel>Verificar Información</ng-template>
+
+            <div class="row">
+              <div class="col-md-6"><label class="titulo">Nombre: </label><label class="contenido">{{firstFormGroup.get('nombreE').value}}</label></div>
+              <div class="col-md-6"><label class="titulo">Tipo: </label><label class="contenido">Votación</label></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><label class="titulo">Fecha de inicio: </label><label class="contenido" >{{feI}}</label></div>
+              <div class="col-md-6"><label class="titulo">Fecha de finalización: </label><label class="contenido">{{feF}}</label></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><label class="titulo">Hora de inicio: </label><label class="contenido" >{{firstFormGroup.get('horaI').value}} Hrs.</label></div>
+              <div class="col-md-6"><label class="titulo">Hora de finalización: </label><label class="contenido">{{firstFormGroup.get('horaF').value}} Hrs.</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="titulo">Candidatos:</label>
+                  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-informacion" >
+                    <mat-accordion>
+                      <mat-expansion-panel *ngFor="let rol of roles">
+                        <!--Titulos-->
+                        <mat-expansion-panel-header style="background: rgb(210, 211, 216); ">
+                          <mat-panel-title style="color: white">
+                            {{rol.rol}}
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <table class="table">
+                          <thead class="thead-dark">
+                              <tr>
+                                  <th scope="col">Código</th>
+                                  <th scope="col">Nombre</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let r of rol.candidatos">
+                              <td style="font-size: 18px; padding-top: 2%">{{r.idU}}</td>
+                              <td style="font-size: 18px; padding-top: 2%">{{r.nombreU}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </mat-expansion-panel>  
+                    </mat-accordion>
+                  </cdk-virtual-scroll-viewport> 
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="titulo">Responsables:</label>
+                  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-informacion" >
+                      <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let r of responsables">
+                            <td style="font-size: 18px; padding-top: 2%">{{r.administrador._id}}</td>
+                            <td style="font-size: 18px; padding-top: 2%">{{r.nombres}} {{r.apellidos}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </cdk-virtual-scroll-viewport>   
+                </div>
+              </div>
+              
+            <div style="margin-top: 3%">
+              <button mat-raised-button matStepperPrevious class="base" color="primary">Regresar</button>
+              <button mat-raised-button class="base" color="primary" (click)="createEvento()" >Finalizar</button>
+            </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+    
+</div>  
+ </div>
+ <div class="footer-ce"></div>

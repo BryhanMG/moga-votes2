@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Advertencia</h1>
+<div>
+  <h4>¿Seguro que quiere eliminar el registro?</h4>
+  <h5>ID: {{idUser}}</h5>
+  <h5>Nombres: {{nombres}}</h5>
+  <h5>Apellidos: {{apellidos}}</h5>
+  <h5>Correo: {{correo}}</h5>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="eliminarRegistro()">Si</button>
+    <button mat-raised-button color="primary" (click)="onNoClick()">No</button>
+  </div>

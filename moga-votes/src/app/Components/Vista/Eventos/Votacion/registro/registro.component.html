@@ -1,0 +1,27 @@
+<div class="header"></div>
+<div class="container" style="margin-top: 10%; margin-bottom: 10%;">
+  <h1>Registro</h1>
+  <div class="form">
+    <mat-form-field style="margin-right: 1%">
+      <input matInput placeholder="Código del participante" [(ngModel)]="codigo" (keyup.enter)="getUsuario()">
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="background: #2E3238; width: 30px" (click)="getUsuario()"><mat-icon>search</mat-icon></button>
+    <div class="row">
+      <div class="col-md-6">
+        <label style="font-size: 20px">Nombre: {{nombre}}</label>
+      </div>
+      <div class="col-md-6">
+        <label style="font-size: 20px">Código: {{idU}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label style="font-size: 20px">Correo: {{correo}}</label>
+      </div>
+      <div class="col-md-6">
+        <button mat-raised-button color="primary" style="background: #2E3238" (click)="addVotante()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer"></div>

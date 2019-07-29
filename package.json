@@ -1,0 +1,32 @@
+{
+  "name": "Proyecto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "client": "cd moga-votes && npm run start",
+    "heroku-postbuild": "cd moga-votes && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.4",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": "v10.16.0",
+    "npm": "6.9.0"
+  },  
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
