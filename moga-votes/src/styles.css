@@ -24,11 +24,11 @@
     
   }
   .h1-login{
-    color: #ffffff;
-    font-size: 90px;
+    color: lightyellow;
+    font-size: 100px;
     font-weight: bolder;
     padding: 0%;
-    text-shadow: 3px 3px 3px #aaa;
+    text-shadow: 5px 3px 3px lightgrey;
   }
 
 /*Estandar footer y header de apartados del proyecto*/
