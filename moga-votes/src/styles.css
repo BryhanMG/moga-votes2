@@ -55,11 +55,11 @@
     
 }
 .h1-apartados{
-    color: #ffffff;
+    color: lightyellow;
     font-size: 90px;
     font-weight: bolder;
     padding: 0%;
-    text-shadow: 3px 3px 3px #aaa;
+    text-shadow: 5px 5px 5px #aaa;
 }
 /*Estandar sub-apartados del proyecto*/
 

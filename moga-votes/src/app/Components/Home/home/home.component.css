@@ -11,11 +11,11 @@
   }
 
   h1{
-    color: #ffffff;
+    color: lightyellow;
     font-size: 120px;
     font-weight: bolder;
     padding: 0%;
-    text-shadow: 3px 5px 5px #aaa;
+    text-shadow: 5px 5px 5px gray;
   }
 
 
