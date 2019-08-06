@@ -35,16 +35,24 @@
       <div class="row">
         <div class="col-md-6">
           <div class="row">
-            <div class="col-md-5"><button  class="button-size" mat-raised-button color="primary" routerLink="/editar-evento/{{evento._id}}/2" [disabled]="!(evento.estado==='E')">Editar</button></div>
-            <div class="col-md-5 "><button  class="button-size" mat-raised-button color="primary" style="background: crimson" [disabled]="!(evento.estado==='A')">Terminar</button></div>
+            <div class="col-md-5"><button  class="button-size" mat-raised-button color="primary" routerLink="/editar-evento/{{evento._id}}/2" 
+              [disabled]="!(evento.estado==='E')"
+              matTooltip="Editar evento">Editar</button></div>
+            <div class="col-md-5 "><button  class="button-size-terminar" mat-raised-button color="primary" 
+              [disabled]="!(evento.estado==='A')"
+              matTooltip="Terminar evento">Terminar</button></div>
           </div>
         </div>
         
         <div class="col-md-6">
           <div class="row">
             <!--[disabled]="evento.estado==='A' || evento.estado==='T'"-->
-            <div class="col-md-6"><button class="button-size" mat-raised-button color="primary" routerLink="/registro_v/{{evento._id}}" [disabled]="evento.estado==='A' || evento.estado==='T'">Registrar</button></div>
-            <div class="col-md-6"><button class="button-size" mat-raised-button color="primary" routerLink="/validarVotante/{{idEvento}}" [disabled]="evento.estado==='E' || evento.estado==='T'">Validar Votante</button></div>
+            <div class="col-md-6"><button class="button-size" mat-raised-button color="primary" routerLink="/registro_v/{{evento._id}}" 
+              [disabled]="evento.estado==='A' || evento.estado==='T'"
+              matTooltip="Registrar participantes">Registrar</button></div>
+            <div class="col-md-6"><button class="button-size" mat-raised-button color="primary" routerLink="/validarVotante/{{idEvento}}" 
+              [disabled]="evento.estado==='E' || evento.estado==='T'"
+              matTooltip="Validación de votantes">Validar Votante</button></div>
           </div>
         </div>
         
@@ -60,7 +68,9 @@
             <h3>Candidatos </h3>
           </div>
           <div class="col-2">
-            <button  class="button-size" mat-raised-button color="primary" [disabled]="!(evento.estado==='A')" (click)="getCandidatos()">Actualizar</button>
+            <button  class="button-size" mat-raised-button color="primary" [disabled]="!(evento.estado==='A')" 
+            (click)="getCandidatos()"
+            matTooltip="Actualizar resultados">Actualizar</button>
           </div>
         </div>
       </div>
@@ -110,7 +120,11 @@
             </div>
             
             <br>
-            <div class="containter col-md-4 col-sm-5 col-lg-3" ><button class="button-size" mat-raised-button style="background: #2E3238; color: white; width: 100%" routerLink="/presentacion/{{idEvento}}/{{rol.rol}}">Modo presentacion</button></div>
+            <div class="containter col-md-4 col-sm-5 col-lg-3" >
+              <button class="button-size" mat-raised-button 
+                style="background: #2E3238; color: white; width: 100%" 
+                routerLink="/presentacion/{{idEvento}}/{{rol.rol}}">Modo presentacion</button>
+              </div>
           </mat-expansion-panel>
           
         </mat-accordion>

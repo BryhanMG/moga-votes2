@@ -4,7 +4,11 @@
   width: 95%;
 }
 
-
+.button-size-terminar {
+  background: crimson;
+  margin-right: 1%;
+  width: 95%;
+}
 
 .form{
   padding-top: 1%;

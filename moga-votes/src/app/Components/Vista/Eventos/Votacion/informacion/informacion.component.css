@@ -11,6 +11,13 @@ h4{
     width: 90px;
 }
 
+  
+.button-size-terminar {
+    background: crimson;
+    margin-right: 1%;
+    width: 90px;
+}
+
 .example-viewport {
     height: 375px;
     width: 100%;
