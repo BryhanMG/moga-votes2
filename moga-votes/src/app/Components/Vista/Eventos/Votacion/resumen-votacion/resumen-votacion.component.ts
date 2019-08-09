@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 
 import { VotacionService } from 'src/app/Servicios/votacion.service';
 import { UsuarioService } from 'src/app/Servicios/usuario.service';
@@ -9,6 +10,7 @@ import { RelojService } from "src/app/Servicios/reloj.service";
 import { Candidato } from 'src/app/Modelo/candidato';
 import { Usuario } from 'src/app/Modelo/usuario';
 import { SubUsuario } from 'src/app/Modelo/crearEdit';
+import { TerminarEventoDialogComponent } from '../../../MisDialogs/terminar-evento-dialog/terminar-evento-dialog.component';
 
 
 
@@ -53,7 +55,8 @@ export class ResumenVotacionComponent implements OnInit, OnDestroy {
   constructor(private reloj: RelojService,
     private route: ActivatedRoute,
     private eventoService: VotacionService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    public dialog: MatDialog,
     
   ) { 
     this.r1Subsciption = this.reloj.time.subscribe((now: Date) => {
@@ -134,8 +137,31 @@ export class ResumenVotacionComponent implements OnInit, OnDestroy {
           });
   }
 
-  
+  terminarEvento(){
+    this.evento.estado = 'T';
+    var f = new Date();
+    f.setHours(f.getHours()-6);
+    this.evento.fecha_f = f.toISOString();
+    this.eventoService.updateTerminar(this.evento)
+      .subscribe(res => {
+        //console.log(res);
+        this.getEvento(this.idEvento);
+      });
+  }
 
+  //Dialog para terminar el evento
+  terminarDialog(id: String, nombre: String): void {
+    const dialogRef = this.dialog.open(TerminarEventoDialogComponent, {
+      data: {id: id, nombre: nombre}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.terminarEvento();
+      }
+    });
+  }
+  
 }
 
 

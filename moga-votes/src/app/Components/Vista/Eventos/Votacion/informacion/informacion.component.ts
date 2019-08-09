@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+
 import { VotacionService } from 'src/app/Servicios/votacion.service'
 import {RelojService} from 'src/app/Servicios/reloj.service';
 import { EventoVotacion } from 'src/app/Modelo/eventoVotacion';
 import { User } from 'src/app/Modelo/user';
 import { UserService } from 'src/app/Servicios/user.service';
 import { AdministradorService } from 'src/app/Servicios/administrador.service';
+import { TerminarEventoDialogComponent } from '../../../MisDialogs/terminar-evento-dialog/terminar-evento-dialog.component';
 @Component({
   selector: 'app-informacion',
   templateUrl: './informacion.component.html',
@@ -24,7 +27,9 @@ export class InformacionComponent implements OnInit, OnDestroy {
   constructor(private reloj: RelojService,
     private eventoService: VotacionService,
     private userService: UserService,
-    private adminService: AdministradorService) { }
+    private adminService: AdministradorService,
+    public dialog: MatDialog,
+    ) { }
 
   ngOnInit() {
     this.userLogged = this.userService.getUserLoggedIn();
@@ -145,5 +150,44 @@ export class InformacionComponent implements OnInit, OnDestroy {
       }
     }
     this.listaEventos = lista;
+  }
+
+  terminarEvento(evento: EventoVotacion){
+    //console.log(this.evento);
+    evento.estado = 'T';
+    var f = new Date();
+    f.setHours(f.getHours()-6);
+    evento.fecha_f = f.toISOString();
+    this.eventoService.updateTerminar(evento)
+      .subscribe(res => {
+        //console.log(res);
+        if (this.userLogged.tipo == 2) {
+          this.adminService.getEventosAE(this.userLogged.username)
+            .subscribe(res => {
+              if (res) {
+                //console.log(res[0]['eventos']);  
+                for (const evt of res[0]['eventos']) {
+                  this.getEventosAdminEspecial(evt);
+                }
+              }
+            });
+        }else{
+          this.getEventos();
+        }
+      });
+      
+  }
+
+  //Dialog para terminar el evento
+  terminarDialog(evento: EventoVotacion): void {
+    const dialogRef = this.dialog.open(TerminarEventoDialogComponent, {
+      data: {id: evento['_id'], nombre: evento['nombre_er']}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.terminarEvento(evento);
+      }
+    });
   }
 }

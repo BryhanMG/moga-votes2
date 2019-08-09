@@ -16,6 +16,7 @@ router.put('/update/:id', evento.updateEvento);
 router.put('/add/:id', evento.addVotante);
 router.put('/quit/:id', evento.quitVotante);
 router.put('/updateEstado/:id/:estado', evento.updateEstado);
+router.put('/terminar/:id', evento.updateTerminar);
 
 
 //router.put('/update_v/:id', evento.updateVotante);

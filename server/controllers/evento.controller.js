@@ -48,6 +48,17 @@ evetoController.updateEvento = async(req, res)=>{
     res.json({status: 'Evento actualizado'});
 }
 
+//Actualizar terminar evento
+evetoController.updateTerminar = async(req, res)=>{
+    const {id} = req.params;
+    const eventoV = {
+        fecha_f: req.body.fecha_f,
+        estado: req.body.estado
+    };
+    await Evento.findByIdAndUpdate(id, {$set: eventoV}, {new: true});
+    res.json({status: 'Evento terminado'});
+}
+
 //Obtener un votante del evento indicado
 evetoController.getVotante = async(req, res)=>{
     const id = req.params.id;

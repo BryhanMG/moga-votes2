@@ -56,6 +56,10 @@ export class VotacionService {
   }
 
 
+  //Actualizar/Terminar evento
+  updateTerminar(evento: EventoVotacion){
+    return this.http.put(this.URL_API_EVENTO+`/terminar/${evento._id}`, evento);
+  }
 
   //Obtener todos los roles de candidatos del evento especificado
   getCandidatos(id: string){
