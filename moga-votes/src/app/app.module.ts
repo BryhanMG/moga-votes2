@@ -36,6 +36,7 @@ import { EliminarEventoDialogComponent } from './Components/Vista/MisDialogs/eli
 import { CambiarPasswordDialogComponent } from './Components/Vista/MisDialogs/cambiar-password-dialog/cambiar-password-dialog.component';
 import { ErrorLogoutComponent } from './Components/Errores/error-logout/error-logout.component';
 import { TerminarEventoDialogComponent } from "./Components/Vista/MisDialogs/terminar-evento-dialog/terminar-evento-dialog.component";
+import { ImportRegistrosDialogComponent } from "./Components/Vista/MisDialogs/import-registros-dialog/import-registros-dialog.component";
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { TerminarEventoDialogComponent } from "./Components/Vista/MisDialogs/ter
     EliminarEventoDialogComponent,
     CambiarPasswordDialogComponent,
     ErrorLogoutComponent,
-    TerminarEventoDialogComponent
+    TerminarEventoDialogComponent,
+    ImportRegistrosDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,8 @@ import { TerminarEventoDialogComponent } from "./Components/Vista/MisDialogs/ter
     InfoAdministradorDialogComponent,
     EliminarEventoDialogComponent,
     CambiarPasswordDialogComponent,
-    TerminarEventoDialogComponent
+    TerminarEventoDialogComponent,
+    ImportRegistrosDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

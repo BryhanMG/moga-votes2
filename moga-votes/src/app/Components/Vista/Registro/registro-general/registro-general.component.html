@@ -32,12 +32,21 @@
           </div>
           
         </div>
-        <button mat-raised-button color="primary" style="background: #2E3238; margin-right: 1%" 
-          (click)="guardarUsuario()"
-          matTooltip="Guardar datos">Guardar</button>
-        <button mat-raised-button color="primary" style="background: #2E3238" 
-          (click)="limpiarCampos()"
-          matTooltip="Limpiar campos">{{opCancelar}}</button>
+        <div class="row">
+          <div class="col-6">
+            <button mat-raised-button color="primary" style="background: #2E3238;margin-right: 1%" 
+              (click)="guardarUsuario()"
+              matTooltip="Guardar datos">Guardar</button>
+            <button mat-raised-button color="primary" style="background: #2E3238" 
+              (click)="limpiarCampos()"
+              matTooltip="Limpiar campos">{{opCancelar}}</button>
+          </div>
+          <div class="col-6">
+            <button mat-raised-button color="primary" style="background: #2E3238; margin-right: 1%" (click)="importDialog()">Cargar datos</button>
+          </div>
+        </div>
+        
+        
       </form>
       
       <mat-divider style="margin-top: 2%"></mat-divider>

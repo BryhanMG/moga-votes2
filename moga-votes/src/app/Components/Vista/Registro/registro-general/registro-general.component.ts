@@ -7,6 +7,7 @@ import { ImagenesService } from "src/app/Servicios/imagenes.service";
 import { UsuarioService } from 'src/app/Servicios/usuario.service';
 import { Usuario } from 'src/app/Modelo/usuario';
 import { EliminarUsuarioDialogComponent } from '../../MisDialogs/eliminar-usuario-dialog/eliminar-usuario-dialog.component';
+import { ImportRegistrosDialogComponent } from '../../MisDialogs/import-registros-dialog/import-registros-dialog.component';
 
 @Component({
   selector: 'app-registro-general',
@@ -185,7 +186,19 @@ export class RegistroGeneralComponent implements OnInit {
       });
   }
 
+  importDialog(): void {
+    const dialogRef = this.dialog.open(ImportRegistrosDialogComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(result);
+      //console.log('The dialog was closed');
+      
+    });
+  }
+
 }
+
+
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
