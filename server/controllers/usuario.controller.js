@@ -17,8 +17,6 @@ usuarioController.crearUsuario = async(req, res)=>{
         console.log(error);
         res.json("E001")
     }
-    
-    
 };
 
 usuarioController.getUsuario =  async(req, res)=>{
