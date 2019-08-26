@@ -11,6 +11,10 @@ import { LoginAComponent } from './Components/Login/login-a/login-a.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 
+import { environment } from "../environments/environment";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireStorageModule } from "@angular/fire/storage";
+
 import { MenuSidenavComponent } from './Components/Home/menu-sidenav/menu-sidenav.component';
 import { PrincipalComponent } from './Components/Vista/Eventos/principal/principal.component';
 import { InformacionComponent } from './Components/Vista/Eventos/Votacion/informacion/informacion.component';
@@ -76,7 +80,9 @@ import { ImportRegistrosDialogComponent } from "./Components/Vista/MisDialogs/im
     FormsModule,
     ReactiveFormsModule,
     //ImageUploadModule.forRoot(),
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
   ],
   entryComponents:[
     MaquinaDialogComponent,

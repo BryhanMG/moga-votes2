@@ -91,9 +91,17 @@
 
       <mat-divider></mat-divider>
       <div style="margin-top: 2%">
-          <h4>Cargar imagen</h4>
-        <input #imageInput type="file" accept="image/*" (change)="fileChangeEvent(imageInput)" >
+        <h4>Cargar imagen</h4>
+        <div *ngIf="opUpload == 0 || opUpload == 2"><img style="width: 250px; margin-bottom: 1%" [src]="imgSrc"></div>
+        <div *ngIf="opUpload == 1">
+          <mat-spinner ></mat-spinner>
+        </div>
+        <input #imageIn type="file" accept="image/*" (change)="showPreview($event)">
       </div>
+      <button mat-raised-button color="primary" class="button-size" style="width: 140px; margin-top: 2%" 
+        (click)="uploadImage()" 
+        [disabled]="fSelected">Subir imagen</button>
+      <mat-icon style="color: green; font-size: 35px" *ngIf="opUpload == 2">done_outline</mat-icon>
     </div>
     
   </div>

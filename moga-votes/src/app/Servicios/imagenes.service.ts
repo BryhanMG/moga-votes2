@@ -16,7 +16,7 @@ export class ImagenesService {
     return this.http.get(this.URL_API + `/get/`);
   }
 
-  postImagen(imagen: Object){
-    return this.http.post(this.URL_API + `/post/`, imagen);
+  postImagen(imagen: String){
+    return this.http.post(this.URL_API + `/post/`, {imagen: imagen});
   }
 }

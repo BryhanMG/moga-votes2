@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -8,6 +8,8 @@ import { UsuarioService } from 'src/app/Servicios/usuario.service';
 import { Usuario } from 'src/app/Modelo/usuario';
 import { EliminarUsuarioDialogComponent } from '../../MisDialogs/eliminar-usuario-dialog/eliminar-usuario-dialog.component';
 import { ImportRegistrosDialogComponent } from '../../MisDialogs/import-registros-dialog/import-registros-dialog.component';
+import { finalize } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-registro-general',
@@ -15,6 +17,7 @@ import { ImportRegistrosDialogComponent } from '../../MisDialogs/import-registro
   styleUrls: ['./registro-general.component.css']
 })
 export class RegistroGeneralComponent implements OnInit {
+  @ViewChild('imageIn', {static: true}) imagenField: ElementRef;
   opCancelar = "Limpiar";
 
   formGroup= new FormGroup({
@@ -155,7 +158,8 @@ export class RegistroGeneralComponent implements OnInit {
   }
 
   //-------------------------------------------------------------------------------------
-  //Subir imagen
+  //Subir imagen al servidor
+  /*
   selectedFile: ImageSnippet;
   
   fileChangeEvent(imageInput: any){
@@ -184,7 +188,7 @@ export class RegistroGeneralComponent implements OnInit {
         console.log(res);
         
       });
-  }
+  }*/
 
   importDialog(): void {
     const dialogRef = this.dialog.open(ImportRegistrosDialogComponent);
@@ -196,6 +200,58 @@ export class RegistroGeneralComponent implements OnInit {
     });
   }
 
+  urlImage: String;
+  uploadPercent: number = 0;
+  opUpload = 0;
+  uploadImage(){
+    this.opUpload = 1;
+    const id = Math.random().toString(36).substring(2);
+    const file = this.selectedImage;
+    const filePath = `upload-moga/imagen_${id}`;
+    let referencia = this.uploadService.referenciaCloudStorage(filePath);
+    let task = this.uploadService.tareaCloudStorage(filePath, file);
+    
+    task.percentageChanges().subscribe((porcentaje) => {
+      this.uploadPercent = Math.round(porcentaje);
+      //console.log(this.uploadPercent);
+    });
+    
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        referencia.getDownloadURL().subscribe(downloadURL => {
+          //console.log('File available at', downloadURL);
+          
+          this.imagenField.nativeElement.value = '';
+          this.imgSrc = '../../../assets/imgs/image_preview.png';
+          this.opUpload = 2;
+
+          this.imagenesService.postImagen(downloadURL)
+            .subscribe(res => {
+              //console.log(res);
+            });
+        }, error => {console.log(error)});
+      })
+    ).subscribe();
+    this.fSelected = true;
+  }
+
+  imgSrc: String = '../../../assets/imgs/image_preview.png';
+  selectedImage: any = null;
+  fSelected = true;
+  showPreview(event: any){
+    //console.log(event.target.files);
+    this.opUpload = 0;
+    if(event.target.files && event.target.files[0]){
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      this.fSelected = false;
+    }else{
+      this.imgSrc = '../../../assets/imgs/image_preview.png';
+      this.selectedImage = null;
+    }
+  }
 }
 
 
