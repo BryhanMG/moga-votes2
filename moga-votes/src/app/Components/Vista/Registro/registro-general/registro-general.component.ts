@@ -9,6 +9,8 @@ import { Usuario } from 'src/app/Modelo/usuario';
 import { EliminarUsuarioDialogComponent } from '../../MisDialogs/eliminar-usuario-dialog/eliminar-usuario-dialog.component';
 import { ImportRegistrosDialogComponent } from '../../MisDialogs/import-registros-dialog/import-registros-dialog.component';
 import { finalize } from 'rxjs/operators';
+import { Imagen } from 'src/app/Modelo/imagen';
+import { EliminarImagenDialogComponent } from '../../MisDialogs/eliminar-imagen-dialog/eliminar-imagen-dialog.component';
 
 
 @Component({
@@ -18,7 +20,9 @@ import { finalize } from 'rxjs/operators';
 })
 export class RegistroGeneralComponent implements OnInit {
   @ViewChild('imageIn', {static: true}) imagenField: ElementRef;
+  
   opCancelar = "Limpiar";
+  imagenes: Imagen[];
 
   formGroup= new FormGroup({
     idUsuario: new FormControl(''),
@@ -41,6 +45,7 @@ export class RegistroGeneralComponent implements OnInit {
       apellidos: ['', Validators.required],
       correo: ['']
     }); 
+    this.obtenerImagenes();
   }
 
   //Registrar usuario
@@ -190,6 +195,8 @@ export class RegistroGeneralComponent implements OnInit {
       });
   }*/
 
+  //Dialogs-----------------------------------------------------------------------------
+  //Dialog para importar nuevos registros de usuario
   importDialog(): void {
     const dialogRef = this.dialog.open(ImportRegistrosDialogComponent);
   
@@ -199,6 +206,46 @@ export class RegistroGeneralComponent implements OnInit {
       
     });
   }
+
+  //Dialog para eliminar una imagen
+  eliminarImagenDialog(imagen: Imagen): void {
+    const dialogRef = this.dialog.open(EliminarImagenDialogComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+       this.eliminarImagen(imagen);
+      }
+    });
+  }
+
+
+  //Obtener imagenes subidas
+  obtenerImagenes(){
+    this.imagenesService.getImagenes()
+      .subscribe(res => {
+        this.imagenes = res as Imagen[];
+        //console.log(this.imagenes);
+      });
+  }
+
+  eliminarImagen(imagen: Imagen){
+    this.uploadService.eliminarDeCloudStorage(imagen.imagen.toString())
+      .then(() => {
+        console.log("Archivo correcamente eliminado");
+        this.imagenesService.deleteImagen(imagen._id)
+          .subscribe( res => {
+            //console.log(res);
+            this.obtenerImagenes();
+          });
+      }).catch(error => {
+        console.log("Error al intentar eliminar el archivo: ", error);
+      });
+    
+    
+  }
+
+  //--------------------------------------------------------------------------------------
+  //Subir imagenes a firebase
 
   urlImage: String;
   uploadPercent: number = 0;
@@ -228,6 +275,7 @@ export class RegistroGeneralComponent implements OnInit {
           this.imagenesService.postImagen(downloadURL)
             .subscribe(res => {
               //console.log(res);
+              this.obtenerImagenes();
             });
         }, error => {console.log(error)});
       })

@@ -1,4 +1,4 @@
 export class Imagen{
-    id: String;
+    _id: String;
     imagen: String;
 }

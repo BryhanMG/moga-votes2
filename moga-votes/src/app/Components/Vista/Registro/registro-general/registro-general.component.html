@@ -90,21 +90,46 @@
       </div>
 
       <mat-divider></mat-divider>
-      <div style="margin-top: 2%">
-        <h4>Cargar imagen</h4>
-        <div *ngIf="opUpload == 0 || opUpload == 2"><img style="width: 250px; margin-bottom: 1%" [src]="imgSrc"></div>
-        <div *ngIf="opUpload == 1">
-          <mat-spinner ></mat-spinner>
+      <div class="row">
+        <div class="col-lg-5">
+          <div style="margin-top: 2%">
+            <h4>Cargar imagen</h4>
+            <div *ngIf="opUpload == 0 || opUpload == 2"><img style="width: 225px; height: 225px; margin-bottom: 1%" [src]="imgSrc"></div>
+            <div *ngIf="opUpload == 1">
+              <mat-spinner ></mat-spinner>
+            </div>
+            <input #imageIn type="file" accept="image/*" (change)="showPreview($event)">
+          </div>
+          <button mat-raised-button color="primary" class="button-size" style="width: 140px; margin-top: 2%" 
+            (click)="uploadImage()" 
+            [disabled]="fSelected">Subir imagen</button>
+          <mat-icon style="color: green; font-size: 35px" *ngIf="opUpload == 2">done_outline</mat-icon>
         </div>
-        <input #imageIn type="file" accept="image/*" (change)="showPreview($event)">
+        <div class="col-lg-7">
+          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-principal">
+            <div class="row">
+              <div class="col-md-4 col-sm-6" *ngFor="let img of imagenes">
+                <mat-card class="example-card" >
+                  <img class="imagen-show" [src]="img.imagen" >
+                  <mat-card-actions>
+                    <button mat-raised-button color="primary" class="button-size" 
+                    style="width: 100%; margin: 2%" (click)="eliminarImagenDialog(img)">Eliminar</button>                  
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+
+            </div>
+              
+            
+          </cdk-virtual-scroll-viewport>
+        </div>
       </div>
-      <button mat-raised-button color="primary" class="button-size" style="width: 140px; margin-top: 2%" 
-        (click)="uploadImage()" 
-        [disabled]="fSelected">Subir imagen</button>
-      <mat-icon style="color: green; font-size: 35px" *ngIf="opUpload == 2">done_outline</mat-icon>
+      
+      
     </div>
     
   </div>
 
   
 </div>
+<div class="footer" style="margin-top: 2%"></div>

@@ -19,4 +19,8 @@ export class ImagenesService {
   postImagen(imagen: String){
     return this.http.post(this.URL_API + `/post/`, {imagen: imagen});
   }
+
+  deleteImagen(id: String){
+    return this.http.delete(this.URL_API + `/delete/${id}`);
+  }
 }

@@ -436,9 +436,10 @@ export class CrearEditarEventoComponent extends CrearEdit implements OnInit {
     this.imagenesService.getImagenes()
       .subscribe(res => {
         this.imagenes = res as Imagen[];
+        /*
         for (const img of this.imagenes) {
           img.imagen = "../../../../../../assets/upload/"+img.imagen;
-        }
+        }*/
         //console.log(this.imagenes);
       });
   }

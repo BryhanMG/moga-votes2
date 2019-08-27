@@ -30,4 +30,9 @@ export class UploaderService {
   public referenciaCloudStorage(nombreArchivo: string) {
     return this.storage.ref(nombreArchivo);
   }
+
+  //Eliminar archivo
+  public eliminarDeCloudStorage(downloadUrl: string) {
+    return this.storage.storage.refFromURL(downloadUrl).delete();
+  }
 }
