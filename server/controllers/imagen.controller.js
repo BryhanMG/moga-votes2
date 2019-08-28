@@ -19,7 +19,7 @@ imagenController.postImagenes = async(req, res)=>{
 
 //Eliminar una imagen
 imagenController.deleteImagen = async (req, res) => {
-    await Imagen.findByIdAndDelete(req.params.id);
+    await Imagen.findByIdAndRemove(req.params.id);
     res.json({status: 'Se eliminó la imagen.'});
 };
 
