@@ -5,6 +5,6 @@ const imagen = require('../controllers/imagen.controller')
 
 router.get('/get/', imagen.getImagenes);
 router.post('/post/', imagen.postImagenes);
-router.delete('/delete/:id', imagen.postImagenes);
+router.delete('/delete/:id', imagen.deleteImagen);
 
 module.exports = router;
