@@ -94,10 +94,12 @@
         <div class="col-lg-5">
           <div style="margin-top: 2%">
             <h4>Cargar imagen</h4>
+            <p>Tamaño máximo 500KB</p>
             <div *ngIf="opUpload == 0 || opUpload == 2"><img style="width: 225px; height: 225px; margin-bottom: 1%" [src]="imgSrc"></div>
             <div *ngIf="opUpload == 1">
               <mat-spinner ></mat-spinner>
             </div>
+            <p *ngIf="fErrorSize" style="color: crimson">Imagen excede el tamaño máximo</p>
             <input #imageIn type="file" accept="image/*" (change)="showPreview($event)">
           </div>
           <button mat-raised-button color="primary" class="button-size" style="width: 140px; margin-top: 2%" 

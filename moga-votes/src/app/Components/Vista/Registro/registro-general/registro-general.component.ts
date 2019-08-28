@@ -286,19 +286,31 @@ export class RegistroGeneralComponent implements OnInit {
   imgSrc: String = '../../../assets/imgs/image_preview.png';
   selectedImage: any = null;
   fSelected = true;
+  fErrorSize = false;
   showPreview(event: any){
     //console.log(event.target.files);
     this.opUpload = 0;
-    if(event.target.files && event.target.files[0]){
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.imgSrc = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
-      this.selectedImage = event.target.files[0];
-      this.fSelected = false;
+    //console.log(event.target.files[0]);
+    //console.log(event.target.files[0]['size']/1000);
+    if((event.target.files[0]['size']/1000) <= 500){
+      if(event.target.files && event.target.files[0]){
+        this.fErrorSize = false;
+        const reader = new FileReader();
+        reader.onload = (e: any) => this.imgSrc = e.target.result;
+        reader.readAsDataURL(event.target.files[0]);
+        this.selectedImage = event.target.files[0];
+        this.fSelected = false;
+      }else{
+        this.imgSrc = '../../../assets/imgs/image_preview.png';
+        this.selectedImage = null;
+      }
     }else{
+      this.fErrorSize = true;
+      this.imagenField.nativeElement.value = '';
       this.imgSrc = '../../../assets/imgs/image_preview.png';
       this.selectedImage = null;
     }
+    
   }
 }
 
