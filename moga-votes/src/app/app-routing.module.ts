@@ -17,6 +17,7 @@ import {ValidarVotanteComponent} from 'src/app/Components/Vista/Eventos/Votacion
 import {RegistroGeneralComponent } from "src/app/Components/Vista/Registro/registro-general/registro-general.component";
 import { AdministarUsuariosComponent } from './Components/Vista/Usuarios/administar-usuarios/administar-usuarios.component';
 import { ErrorLogoutComponent } from './Components/Errores/error-logout/error-logout.component';
+import {InformeComponent} from './Components/Vista/Eventos/informe/informe.component'
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'loginVotacion', component: LoginBComponent},
   {path: 'validarVotante/:id', component: ValidarVotanteComponent},
   {path: 'error-logout', component: ErrorLogoutComponent},
+  {path: 'informe/:id', component: InformeComponent},
 ];
 
 @NgModule({

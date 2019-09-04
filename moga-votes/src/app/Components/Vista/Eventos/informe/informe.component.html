@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="form" style="margin-top: 3%; margin-bottom: 3%">
+        <p>Ingrese el nombre del lugar donde se realizó el evento:</p>
+        <mat-form-field>
+            <input matInput placeholder="Lugar del evento" [(ngModel)]="entrada" (keyup.enter)="guardarLocalidad()">
+        </mat-form-field>
+        <button mat-raised-button color="primary" style="margin-left: 2%" 
+            [disabled]="(entrada == null)"
+            (click)="guardarLocalidad()">Guardar</button>
+        <br>
+        <button mat-raised-button color="primary" style="margin-bottom: 2%"  
+            [disabled]="(lugar === '----------')"
+            (click)="descargarPDF()">Descargar informe</button>
+    </div>
+    
+    
+    <div class="form">
+        <div #informe style="background: white; padding: 3%">
+            <div class="row">
+                <div class="col-md-6">
+                    <img style="width: 60%; height: 100%;" 
+                    src="../../../../../assets/imgs/MOGA_votes_logo.png">
+                </div>
+                <div class="col-md-6">
+                    <h5 style="margin-left: 10%">{{lugar}}, {{fecha.getDate()}} de {{obtenerMes(fecha.getMonth())}} del {{fecha.getFullYear()}} </h5>
+                </div>
+            </div>
+            <div>
+                <p>En este informe se presentan los resultados del evento con la siguiente información: </p>
+            </div>
+            <div>
+                <mat-divider></mat-divider>
+                <p>Informe del evento de votación con código {{idEvento}}</p>
+                <p>Nombre del evento: {{evento.nombre_ev}}</p>
+                <p>Fecha y hora de inicio: {{evento.fecha_i.substring(0, 10)}} ---- {{evento.fecha_i.substring(11, 16)}} Hrs.</p>
+                <p>Fecha y hora de finalización: {{evento.fecha_f.substring(0, 10)}} ---- {{evento.fecha_f.substring(11, 16)}} Hrs.</p>
+                <mat-divider></mat-divider>
+                <div *ngFor="let rol of roles">
+                    <h3>{{rol.rol}}</h3>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th scope="col" style="width: 25%">ID</th>
+                            <th scope="col" style="width: 50%">Nombre</th>
+                            <th scope="col" style="width: 25%">Votos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let can of rol.arreglo">
+                                <td style="width: 25%">{{can._id}}</td>
+                                <td style="width: 50%">{{can.nombres}} {{can.apellidos}}</td>
+                                <td style="width: 25%">{{can.votos}}</td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

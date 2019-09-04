@@ -43,6 +43,7 @@ import { ErrorLogoutComponent } from './Components/Errores/error-logout/error-lo
 import { TerminarEventoDialogComponent } from "./Components/Vista/MisDialogs/terminar-evento-dialog/terminar-evento-dialog.component";
 import { ImportRegistrosDialogComponent } from "./Components/Vista/MisDialogs/import-registros-dialog/import-registros-dialog.component";
 import { EliminarImagenDialogComponent } from './Components/Vista/MisDialogs/eliminar-imagen-dialog/eliminar-imagen-dialog.component';
+import { InformeComponent } from './Components/Vista/Eventos/informe/informe.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { EliminarImagenDialogComponent } from './Components/Vista/MisDialogs/eli
     ErrorLogoutComponent,
     TerminarEventoDialogComponent,
     ImportRegistrosDialogComponent,
-    EliminarImagenDialogComponent
+    EliminarImagenDialogComponent,
+    InformeComponent
   ],
   imports: [
     BrowserModule,
