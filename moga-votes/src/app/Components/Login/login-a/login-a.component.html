@@ -1,6 +1,11 @@
 <html>
   <head>Login MOGA</head>
   <body>
+      <span class="float-left">
+          <button mat-raised-button color="primary" routerLink="/loginVotacion" style="background: #2E3238">
+            <mat-icon>how_to_vote</mat-icon> 
+            <br>Emisión Voto</button>
+      </span>
       <div class="login">
           <div class="container "><h1 class="h1-login">Bienvenido a MOGA Votes</h1></div>
         </div>
@@ -25,9 +30,7 @@
           <div class="container offset-2">
             {{mensaje}}
           </div>
-          <div class="container" >
-            <button mat-raised-button color="primary" routerLink="/loginVotacion" style="background: #2E3238">Emision Voto</button>
-          </div>
+          
       </div>  
         
     </div>
