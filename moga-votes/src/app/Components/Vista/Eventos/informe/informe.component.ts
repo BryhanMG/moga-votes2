@@ -8,6 +8,8 @@ import { UsuarioService } from 'src/app/Servicios/usuario.service';
 import { Usuario } from 'src/app/Modelo/usuario';
 
 import jsPDF from 'jspdf';
+import { User } from 'src/app/Modelo/user';
+import { UserService } from 'src/app/Servicios/user.service';
 
 @Component({
   selector: 'app-informe',
@@ -16,6 +18,7 @@ import jsPDF from 'jspdf';
 })
 export class InformeComponent implements OnInit {
   @ViewChild('informe', {static: true}) informe: ElementRef;
+  userLogged: User;
 
   entrada: String;
   lugar: String = "----------";
@@ -25,16 +28,19 @@ export class InformeComponent implements OnInit {
   roles =[];
   candidatos= [];
   fecha = new Date();
-
+  fechaA = new Date();
   constructor(private eventoService: VotacionService,
     private route: ActivatedRoute,
-    private usuarioService: UsuarioService,) {
+    private usuarioService: UsuarioService,
+    private userService: UserService,) {
     this.idEvento = this.route.snapshot.paramMap.get('id');
     this.getEvento(this.idEvento);
-    
+
    }
 
   ngOnInit() {
+    this.userLogged = this.userService.getUserLoggedIn();
+
     }
 
   getEvento(id: string){
@@ -45,7 +51,7 @@ export class InformeComponent implements OnInit {
           this.evento = res as EventoVotacion;
           this.getCandidatos();
         }
-        
+
         //console.log(res);
       });
   }
@@ -65,10 +71,10 @@ export class InformeComponent implements OnInit {
             var s = can as SubUsuario;
             this.obtenerUsuario(rol.rol, s);
           }
-          //this.getCandidato(rol);  
+          //this.getCandidato(rol);
           this.fecha =  new Date(this.evento.fecha_f.toString());
         }
-        
+
       });
   }
 
@@ -81,10 +87,10 @@ export class InformeComponent implements OnInit {
                 //console.log(r);
                 r.arreglo.push({_id: this.usuarioService.usuario._id, nombres: this.usuarioService.usuario.nombres,
                   apellidos: this.usuarioService.usuario.apellidos, correo: this.usuarioService.usuario.correo, votos: s.votos});
-                break;    
+                break;
               }
             }
-            
+
             //console.log(this.roles);
           });
   }
@@ -147,7 +153,7 @@ export class InformeComponent implements OnInit {
     doc.addHTML(this.informe.nativeElement, function() {
       doc.save('informe_'+id+'.pdf');
    });
-    
+
   }
 
 }

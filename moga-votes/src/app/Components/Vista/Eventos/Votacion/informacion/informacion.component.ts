@@ -37,7 +37,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
       this.adminService.getEventosAE(this.userLogged.username)
         .subscribe(res => {
           if (res) {
-            //console.log(res[0]['eventos']);  
+            //console.log(res[0]['eventos']);
             for (const evt of res[0]['eventos']) {
               this.getEventosAdminEspecial(evt);
             }
@@ -50,7 +50,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
     this.r1Subsciption = this.reloj.time.subscribe((now: Date) => {
       //console.log("tiempo", now);
       this.comprobarEventos();
-      
+
     });
   }
 
@@ -68,39 +68,39 @@ export class InformacionComponent implements OnInit, OnDestroy {
               if (evento["_id"] === aev["_id"]) {
                 evento["estado"]="A";
                 continue;
-              }  
+              }
             }
-            
+
           }
 
-          
+
         });
       this.eventoService.getEventosRevision( "T")
       .subscribe(res => {
         var eventos = res as EventoVotacion[];
-        
-        
+
+
         for (const evento of this.listaEventos) {
           for (const aev of eventos) {
             if (evento["_id"] === aev["_id"]) {
               evento["estado"]="T";
               continue;
-            }  
+            }
           }
-          
+
         }
 
-        
+
       });
   }
-  
+
 
   getEventos(){
     this.eventoService.getEventos()
       .subscribe(res =>{
         this.listaEventos = res as EventoVotacion[];
         this.listaOpcion = res as EventoVotacion[];
-        //console.log(this.listaEventos);
+        console.log(this.listaEventos);
       });
   }
 
@@ -165,7 +165,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
           this.adminService.getEventosAE(this.userLogged.username)
             .subscribe(res => {
               if (res) {
-                //console.log(res[0]['eventos']);  
+                //console.log(res[0]['eventos']);
                 for (const evt of res[0]['eventos']) {
                   this.getEventosAdminEspecial(evt);
                 }
@@ -175,7 +175,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
           this.getEventos();
         }
       });
-      
+
   }
 
   //Dialog para terminar el evento
