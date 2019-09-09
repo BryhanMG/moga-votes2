@@ -126,6 +126,7 @@ export class CrearEditarEventoComponent extends CrearEdit implements OnInit {
           }
           if (!fe) {
             rol.candidatos.push({idU: this.idU, nombreU: this.nombreU, imagen: this.imgSeleccionada});
+            //console.log(rol);
             this.openSnackBar("Candidato guardado", "Cerrar");
             this.limpiarDatosCandidato();
             break;
@@ -440,10 +441,7 @@ export class CrearEditarEventoComponent extends CrearEdit implements OnInit {
     this.imagenesService.getImagenes()
       .subscribe(res => {
         this.imagenes = res as Imagen[];
-        /*
-        for (const img of this.imagenes) {
-          img.imagen = "../../../../../../assets/upload/"+img.imagen;
-        }*/
+
         //console.log(this.imagenes);
       });
   }

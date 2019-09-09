@@ -28,7 +28,7 @@ export class CandidatoLista{
 export class Rol{
   rol: String;
   arreglo =[];
-} 
+}
 
 
 @Component({
@@ -49,13 +49,13 @@ export class ModoPresentacionComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private eventoService: VotacionService,
     private usuarioService: UsuarioService) { }
-    
+
   ngOnInit() {
     this.idEvento = this.route.snapshot.paramMap.get('id');
     this.idRol = this.route.snapshot.paramMap.get('idR');
     //console.log("evento: "+this.idEvento+"   Rol: "+this.idRol);
     this.getCandidatos();
-    
+
 
   }
 
@@ -64,29 +64,30 @@ export class ModoPresentacionComponent implements OnInit {
     this.eventoService.getCandidatos(this.idEvento)
       .subscribe(res =>{
         this.eventoService.candidatos = res as Candidato[];
-        //console.log(res);
+        console.log(res);
         this.totalRoles = 0;
-        
+
         for (const rol of this.eventoService.candidatos) {
           //console.log(rol);
           this.roles.push({idR: rol._id, rol: rol.rol, count: this.totalRoles, arreglo: []});
-          
+
           this.candidatos = [];
           for (const can of rol.candidatos) {
             //console.log(can);
             var s = can as SubUsuario;
+            //console.log(s);
             this.obtenerUsuario(rol.rol, s);
           }
           if (rol.rol === this.idRol) {
-            this.rolShow = [{idR: rol._id, rol: rol.rol, count: this.totalRoles, arreglo: this.candidatos}];  
+            this.rolShow = [{idR: rol._id, rol: rol.rol, count: this.totalRoles, arreglo: this.candidatos}];
           }
           //this.getCandidato(rol);
           this.totalRoles++;
         }
-        
+
       });
   }
- 
+
   obtenerUsuario(rol: String, s: SubUsuario){
     this.usuarioService.getUsuario(s._id)
           .subscribe(res =>{
@@ -100,12 +101,12 @@ export class ModoPresentacionComponent implements OnInit {
                   this.rolShow[0].arreglo.push({_id: this.usuarioService.usuario._id, nombres: this.usuarioService.usuario.nombres,
                     apellidos: this.usuarioService.usuario.apellidos, correo: this.usuarioService.usuario.correo, votos: s.votos, imagen: s.imagen})
                 }
-                
-                break;    
+                //console.log(s.imagen);
+                break;
               }
             }
-            
-            //console.log(this.roles);
+
+            console.log(this.roles);
           });
   }
 

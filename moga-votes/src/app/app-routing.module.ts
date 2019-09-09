@@ -23,7 +23,7 @@ import {InformeComponent} from './Components/Vista/Eventos/informe/informe.compo
 const routes: Routes = [
   {path: 'login', component: LoginAComponent},
   {path: '', redirectTo:'/login', pathMatch: 'full'},
-  {path: 'moga', component: MenuSidenavComponent, 
+  {path: 'moga', component: MenuSidenavComponent,
     children:[
       {path: '', component: HomeComponent},
       //{path: 'eventos', component: PrincipalComponent},
@@ -33,7 +33,7 @@ const routes: Routes = [
       {path: 'usuarios', component: AdministarUsuariosComponent},
     ]},
   {path: 'ceevento', component: CrearEditarEventoComponent},
-  {path: 'editar-evento/:id/:op', component: EditarEventoComponent},  
+  {path: 'editar-evento/:id/:op', component: EditarEventoComponent},
   {path: 'presentacion/:id/:idR', component: ModoPresentacionComponent},
   {path: 'registro_v/:id', component: RegistroComponent},
   {path: 'emisionVoto/:id/:no', component: EmitirVotacionComponent},
