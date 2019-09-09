@@ -3,7 +3,7 @@
 <div class="container">
     <div class="form-ce">
     <div >
-      <mat-horizontal-stepper linear="false" #stepper >
+      <mat-horizontal-stepper linear="true" #stepper >
         <!--Paso inicial de informacion general-->
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup">
@@ -39,7 +39,7 @@
                   <mat-form-field>
                       <input matInput atp-time-picker placeholder="Hora de inicio" formControlName="horaI" required>
                   </mat-form-field>
-                
+
               </div>
               <div class="col-md-6" style="margin-top: 1%; margin-bottom: 2%">
                   <mat-form-field>
@@ -50,9 +50,9 @@
             <div>
                 <div class="md-form" >
                   <label for="form7" >Descripción</label>
-                  
+
                   <textarea type="text" id="form7" class="md-textarea form-control" mdbInput style="height: 190px;" formControlName="descripcion"></textarea>
-                  
+
                 </div>
             </div>
             <div style="margin-top: 2%">
@@ -62,7 +62,7 @@
         </mat-step>
         <!--Paso de generacion de candidatos-->
         <mat-step >
-          
+
             <ng-template matStepLabel>Candidatos</ng-template>
             <div>
               <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" >
@@ -73,7 +73,7 @@
                       <mat-panel-title style="color: white">
                         Crear roles
                       </mat-panel-title>
-                      
+
                     </mat-expansion-panel-header>
                     <!--campos del desplegable-->
 
@@ -81,7 +81,7 @@
                         <mat-form-field>
                           <input matInput placeholder="* Rol del candidato" [(ngModel)]="rol">
                         </mat-form-field>
-                      
+
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -108,10 +108,10 @@
                               </tbody>
                             </table>
                           </cdk-virtual-scroll-viewport>
-                          
+
                       </div>
                     </div>
-                                      
+
                   </mat-expansion-panel>
 
                   <mat-expansion-panel >
@@ -120,10 +120,10 @@
                         <mat-panel-title style="color: white">
                           Ingresar candidatos
                         </mat-panel-title>
-                        
+
                       </mat-expansion-panel-header>
                       <!--campos del desplegable-->
-      
+
                       <div class="row" style="margin-top: 2%">
                         <div class="col-lg-4">
                           <mat-form-field>
@@ -139,17 +139,17 @@
                               <mat-select placeholder="* Escoja un rol"  name="opRol" [(ngModel)]="opRol"  style="margin-top: 10%" >
                                 <mat-option  *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</mat-option>
                               </mat-select>
-                              
+
                             </mat-form-field>
-                            
+
                           </div>
-                          <div> 
+                          <div>
                             <button mat-raised-button class="base" color="primary" (click)="seleccionarImagen()" [disabled]="!isImgActivo">* seleccionar imagen</button>
                             <mat-icon style="color: green;" *ngIf="itemSelected">done_outline</mat-icon>
                           </div>
-                        </div>  
+                        </div>
                         <div class="col-md-8">
-                            
+
                             <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-informacion3" >
                                 <mat-accordion>
                                   <mat-expansion-panel *ngFor="let rol of roles">
@@ -159,7 +159,7 @@
                                         {{rol.rol}}
                                       </mat-panel-title>
                                     </mat-expansion-panel-header>
-                                    
+
                                         <table class="table">
                                           <thead class="thead-dark">
                                               <tr>
@@ -178,37 +178,37 @@
                                             </tr>
                                           </tbody>
                                         </table>
-                                      
-                                  </mat-expansion-panel>  
+
+                                  </mat-expansion-panel>
                                 </mat-accordion>
                               </cdk-virtual-scroll-viewport>
                               <button mat-raised-button color="primary" style="background: #2E3238; margin-top: 3%; margin-right: 1%" (click)="saveCandidato()">Guardar</button>
-                              
+
                         </div>
                       </div>
-                      
-                                        
+
+
                     </mat-expansion-panel>
                 </mat-accordion>
                 </cdk-virtual-scroll-viewport>
             </div>
             <div *ngIf="flagImage">
-                
+
                 <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" >
-            
+
                     <mat-radio-group aria-label="Select an option" [(ngModel)]="imgSeleccionada" >
                         <mat-radio-button *ngFor="let img of imagenes" [value]="img.imagen" (click)="elegirImagen()"><img [src]="img.imagen"  style="width: 150px; height: 150px; padding-right: 10px" ></mat-radio-button>
-                        
+
                     </mat-radio-group>
                 </cdk-virtual-scroll-viewport>
-                
+
             </div>
-            
+
             <div>
               <button mat-raised-button matStepperPrevious class="base" color="primary">Regresar</button>
               <button mat-raised-button matStepperNext class="base" color="primary" (click)="cargarCandidatos()">Siguiente</button>
             </div>
-          
+
         </mat-step>
         <!--Paso de seleccion de responsables-->
         <mat-step >
@@ -231,7 +231,7 @@
                         <button mat-raised-button class="base" color="primary" style=" margin-right: 20px" (click)="activarDesactivar(a)"><mat-icon>{{a.estado}}</mat-icon></button>
                       </td>
                     </tr>
-                  
+
                   </tbody>
                 </table>
               </cdk-virtual-scroll-viewport>
@@ -241,7 +241,7 @@
                   <input matInput placeholder="No. de puntos de votación" disabled [value]="noPV">
                 </mat-form-field>
                 <button mat-raised-button class="base" color="primary" (click)="sumarPV()"><mat-icon>add</mat-icon></button>
-                
+
               </div>
             </div>
             <div style="margin-top: 3%">
@@ -292,11 +292,11 @@
                             </tr>
                           </tbody>
                         </table>
-                      </mat-expansion-panel>  
+                      </mat-expansion-panel>
                     </mat-accordion>
-                  </cdk-virtual-scroll-viewport> 
+                  </cdk-virtual-scroll-viewport>
                 </div>
-                
+
                 <div class="col-md-6">
                     <label class="titulo">Responsables:</label>
                   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-informacion" >
@@ -314,10 +314,10 @@
                           </tr>
                         </tbody>
                       </table>
-                    </cdk-virtual-scroll-viewport>   
+                    </cdk-virtual-scroll-viewport>
                 </div>
               </div>
-              
+
             <div style="margin-top: 3%">
               <button mat-raised-button matStepperPrevious class="base" color="primary">Regresar</button>
               <button mat-raised-button class="base" color="primary" (click)="createEvento()" >Finalizar</button>
@@ -325,7 +325,7 @@
         </mat-step>
       </mat-horizontal-stepper>
     </div>
-    
-</div>  
+
+</div>
  </div>
  <div class="footer-ce"></div>
