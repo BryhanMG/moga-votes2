@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {MatSnackBar} from '@angular/material';
-import {Location} from '@angular/common'; 
+import {Location} from '@angular/common';
 
 import { AmazingTimePickerService } from 'amazing-time-picker';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
@@ -38,7 +38,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
   des: String = ""; //Descripcion del rol que se crea
   roles = []; //Lista de roles que se agregan
   cancel= true; //boton que cancela la edicion de un rol
-  responsables = []; //Lista de responsables que tienen asignado el evento a crear 
+  responsables = []; //Lista de responsables que tienen asignado el evento a crear
   idR: String = ""; //id del rol para identificarlo y almacenarlo en la lista de roles
   rolesEliminados = [];
 
@@ -55,10 +55,10 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
     horaI: new FormControl(''),
     horaF: new FormControl(''),
     descripcion: new FormControl(''),
-    
+
   });
-  
-  
+
+
 
   constructor(private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -67,7 +67,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
     private adminService: AdministradorService,
     private votacionService: VotacionService,
     private imagenesService: ImagenesService,
-    private maquinaService: MaquinaVotacionService, 
+    private maquinaService: MaquinaVotacionService,
     private snackBar: MatSnackBar,
     private locacion: Location) {
     super();
@@ -83,7 +83,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
       horaI: ['', Validators.required],
       horaF: ['', Validators.required],
       descripcion: ['']
-    });    
+    });
     this.getEvento(this.idEvento);
     this.getResponsables();
     this.getCandidatos(this.idEvento);
@@ -108,13 +108,13 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             this.openSnackBar("Rol actualizado", "Cerrar");
             break;
           }
-          
+
         }
       }
     }else{
       this.openSnackBar("Complete los campos requeridos (*)", "Cerrar");
     }
-    
+
     this.n++;
     this.rol = "";
     this.des = "";
@@ -143,19 +143,19 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             this.isImgActivo = false;
             this.flagImage = false;
             this.itemSelected = false;
-            break;          
+            break;
           }else{
             this.openSnackBar("Candidato ya registrado", "Cerrar");
-            break;  
+            break;
           }
-          
+
         }
       }
-      
+
     }else{
       this.openSnackBar("Debe completar la informacion (*)", "Cerrar");
     }
-    
+
   }
 
   deleteCandidato(id: number, idR: String){
@@ -168,7 +168,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             //console.log("Rol: "+rol.id);
             //console.log("Eliminar candidato: "+candidato.idU);
             rol.candidatos.splice(i, 1);
-            this.openSnackBar("Candidato eliminado", "Cerrar");        
+            this.openSnackBar("Candidato eliminado", "Cerrar");
             break;
           }
           i++;
@@ -200,7 +200,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
         this.idR = rol.id;
         break;
       }
-      
+
     }
   }
 
@@ -226,7 +226,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
       n++;
     }
     this.n--;
-    
+
   }
 
   //Servicio para el timepicker
@@ -257,8 +257,8 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
         i++;
       }
       //this.responsables.splice(i, 1);
-      
-      
+
+
     }else{
       admin.estado = "check_circle"
       admin.administrador.eventos.push(this.evento._id);
@@ -268,12 +268,12 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
         admin.change = true;
       }
       //this.responsables.push(admin);
-      
+
     }
     //console.log(this.admins);
     //console.log(this.responsables);
   }
-  
+
   //Elegir numero de puntos de votación
   noPV = 0;
   listaMaquinas: MaquinaVotacion[];
@@ -295,7 +295,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
     this.votacionService.getEvento(id)
       .subscribe(res =>{
         this.evento = res as EventoVotacion;
-        
+
         this.firstFormGroup.get('nombreE').setValue(this.evento.nombre_ev);
         var FI = new Date(this.evento.fecha_i.substring(0, 10));
         FI.setDate(FI.getDate()+1);
@@ -324,42 +324,42 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             this.getUsuario(c._id, null, rol._id, 3, c.imagen);
           }
           this.n++;
-            
+
         }
-        //console.log(this.roles);       
-        
+        //console.log(this.roles);
+
       });
   }
-  
+
   idUsuario: String;
   nombreU:String;
   idU: String = null;
   admins= [];
-  
+
   getUsuario(id: String, admin: Administrador, idRol: String, op: number, imagen: String){
-    
+
     if (id != null) {
-      
+
       this.usuarioService.getUsuario(id)
           .subscribe(res =>{
             this.usuarioService.usuario = res as Usuario;
             //console.log(this.usuarioService.usuario);
             if (this.usuarioService.usuario != null) {
-              this.obtenerUsuario(this.usuarioService.usuario, admin, idRol, op, imagen);  
+              this.obtenerUsuario(this.usuarioService.usuario, admin, idRol, op, imagen);
             }else{
               this.openSnackBar("Usuario no econtrado", "Cerrar");
             }
-            
+
           });
-      
+
     }else{
       this.openSnackBar("Campo Código vacio", "Cerrar");
     }
     this.idUsuario = null;
-    
+
     //this.nombreU = this.usuarioService.usuario.nombres +" "+this.usuarioService.usuario.apellidos
   }
-  
+
   getResponsables(){
     this.adminService.getAdminsAE()
       .subscribe(res =>{
@@ -368,12 +368,12 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
         for (const a of this.adminService.admins) {
           this.getUsuario(a._id, a,"", 2, "");
         }
-        
+
       });
   }
 
   //**************************************************************************************
-  //Paso final en la cracion de actualizacion  
+  //Paso final en la cracion de actualizacion
   updateGeneral(){
     this.evento.nombre_ev = this.firstFormGroup.get('nombreE').value;
     this.evento.fecha_i = this.fechaI;
@@ -398,13 +398,13 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
       ca.descripcion = can.descripcion;
       ca.nuevo = can.nuevo;
       for (const c of can.candidatos) {
-        ca.candidatos.push({_id: c.idU, votos: 0, imagen: c.imagen});  
+        ca.candidatos.push({_id: c.idU, votos: 0, imagen: c.imagen});
       }
       this.candidatos.push(ca);
     }
     //console.log(this.candidatos);
     for (const can of this.candidatos) {
-      
+
       if (can.nuevo) {
         let candidato = new nuevoCandidato(can.id_ev, can.rol, can.descripcion, can.candidatos);
         this.votacionService.addCandidato(candidato)
@@ -418,7 +418,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
         });
       }
     }
-    
+
     for (const ce of this.rolesEliminados) {
       this.votacionService.deleteCandidato(ce._id)
         .subscribe(res =>{
@@ -429,7 +429,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
   }
 
   updateResponsables(){
-    
+
     //console.log(this.admins);
     for (const ad of this.admins) {
       if(ad.change){
@@ -437,13 +437,12 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
         this.adminService.updateAdminEventos(ad.administrador)
           .subscribe(res =>{
             //console.log(res);
-            this.openSnackBar("Responsables actualizados", "Cerrar");
             ad.change = false;
-          });  
+          });
       }
-      
+
     }
-    
+
     if (this.noPV > this.listaMaquinas.length) {
       for (let i = this.listaMaquinas.length; i < this.noPV; i++) {
         var maquina = new MaquinaVotacion;
@@ -457,9 +456,9 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             //console.log(res);
             this.obtenerMaquinas();
           });
-        
-      }  
-         
+
+      }
+
     }else if (this.noPV < this.listaMaquinas.length) {
       for (let i = this.listaMaquinas.length; i > this.noPV; i--) {
         //console.log("MA"+i+this.idEvento);
@@ -468,14 +467,14 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             //console.log(res);
             this.obtenerMaquinas();
           });
-        
+
       }
-      
+
     }
-    
-    
+    this.openSnackBar("Responsables actualizados", "Cerrar");
+
   }
- 
+
 
   //*************************************************************************************************
   //Opciones para hacer con la obtencion de un usuario
@@ -488,7 +487,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
           this.nombreU = user.nombres+" "+user.apellidos;
           this.isImgActivo = true;
           this.flagImage = false;
-          this.itemSelected = false;    
+          this.itemSelected = false;
         }
         break;
       case 2:
@@ -513,13 +512,13 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
             if (rol.id === idRol) {
               rol.candidatos.push({idU: user._id, nombreU: user.nombres+' '+user.apellidos, imagen: imagen});
               //console.log(rol.candidatos);
-              break;    
+              break;
             }
           }
-          
+
         }
         break;
-      
+
     }
   }
 
@@ -542,14 +541,14 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
   }
 
   elegirImagen(){
-    
+
     this.itemSelected = true;
   }
 
   seleccionarImagen(){
     this.flagImage = true;
     this.isImgActivo = false;
-    
+
   }
 
   //Obtener maquibas del evento
@@ -562,7 +561,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
       });
   }
 
-  backClicked() { 
-    this.locacion.back(); 
-   } 
+  backClicked() {
+    this.locacion.back();
+   }
 }

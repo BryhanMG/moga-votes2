@@ -3,13 +3,13 @@
     <div class="body">
 
       <div *ngIf="!flagValidar; else votar">
-        
+
         <div class="container" style="margin-top:  4%">
           <div class="row">
-              
+
               <div class="container col-6"><h1 style="color: #ffffff">Punto de votación No. {{noMaquina}}</h1></div>
           </div>
-          
+
           <div class="row">
             <div class="col-3"></div>
             <div class="form col-sm-6">
@@ -19,10 +19,10 @@
                     <mat-form-field >
                         <input matInput type="text" placeholder="Codigo de votante"  [(ngModel)] = "idVotante" (keyup.enter)="validarVotante()"/>
                     </mat-form-field>
-                        
+
                   </div>
-                    
-                    
+
+
               </div>
               <div class="row">
                 <div class="col-3"></div>
@@ -33,11 +33,11 @@
               <div class="row">
                   <div class="col-3"></div>
                   <div class="col-md-6" style="margin-top: 2%">{{mensaje}}</div>
-              </div>    
-              
-              
-            </div>  
-          </div>  
+              </div>
+
+
+            </div>
+          </div>
         </div>
 
       </div>
@@ -50,30 +50,30 @@
                 <h1 style="color: white">{{rol.rol}}</h1>
             </div>
           </div>
-              
-          
+
+
           <div class="row">
             <div class="col-md-6"  style="margin-top: 2%" *ngFor="let candidato of rol.arreglo">
-              
+
               <button mat-raised-button style="width: 100%; " (click)="seleccionar(candidato._id)" *ngIf="candidato.flag == false; else seleccionado">
                 <div ><h3>{{candidato.nombres}} {{candidato.apellidos}}</h3></div>
-                <div class="col-6 "><img [src]="candidato.imagen" style="width: 220%; height: 280px; padding: 10%"></div>
-                
+                <div class="col-6 "><img [src]="candidato.imagen" style="width: 250; height: 250px; padding: 10%"></div>
+
               </button>
               <ng-template #seleccionado>
                   <button mat-raised-button style="width: 100%; background: #2E3238; color: #FFFFFF" >
                       <div ><h3>{{candidato.nombres}} {{candidato.apellidos}}</h3></div>
                       <div class="col-6 " ><img [src]="candidato.imagen" style="width: 220%; height: 280px; padding: 10%"></div>
-                      
+
                     </button>
               </ng-template>
-              
+
             </div>
 
-            
+
           </div>
-        
-          
+
+
           <div class="container" style="padding-top: 2%;">
               <button mat-raised-button class="base" color="primary" (click)="anterior()" *ngIf="rolShow[0].count != 0">Anterior</button>
               <span class="float-right"><button mat-raised-button class="base" color="primary" (click)="siguiente() " *ngIf="rolShow[0].count != (totalRoles-1); else finalizar" [disabled]="flagVoto">Siguiente</button></span>
