@@ -135,14 +135,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
           if (!fe) {
             rol.candidatos.push({idU: this.idU, nombreU: this.nombreU, imagen: this.imgSeleccionada});
             this.openSnackBar("Candidato guardado", "Cerrar");
-            this.idU= null;
-            this.nombreU = "";
-            this.opRol = "";
-            this.idUsuario = null;
-            this.imgSeleccionada = "";
-            this.isImgActivo = false;
-            this.flagImage = false;
-            this.itemSelected = false;
+            this.limpiarCandidato();
             break;
           }else{
             this.openSnackBar("Candidato ya registrado", "Cerrar");
@@ -156,6 +149,17 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
       this.openSnackBar("Debe completar la informacion (*)", "Cerrar");
     }
 
+  }
+
+  limpiarCandidato(){
+    this.idU= null;
+    this.nombreU = "";
+    this.opRol = "";
+    this.idUsuario = null;
+    this.imgSeleccionada = "";
+    this.isImgActivo = false;
+    this.flagImage = false;
+    this.itemSelected = false;
   }
 
   deleteCandidato(id: number, idR: String){
@@ -534,7 +538,7 @@ export class EditarEventoComponent extends CrearEdit implements OnInit {
       .subscribe(res => {
         this.imagenes = res as Imagen[];
         for (const img of this.imagenes) {
-          img.imagen = "../../../../../../assets/upload/"+img.imagen;
+          img.imagen = img.imagen;
         }
         //console.log(this.imagenes);
       });

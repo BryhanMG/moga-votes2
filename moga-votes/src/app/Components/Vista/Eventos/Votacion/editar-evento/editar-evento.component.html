@@ -38,7 +38,7 @@
               <mat-form-field>
                   <input matInput atp-time-picker placeholder="Hora de inicio" formControlName="horaI" required>
               </mat-form-field>
-            
+
           </div>
           <div class="col-md-6" style="margin-top: 1%; margin-bottom: 2%">
               <mat-form-field>
@@ -49,9 +49,9 @@
         <div>
             <div class="md-form" >
               <label for="form7" >Descripción</label>
-              
+
               <textarea type="text" id="form7" class="md-textarea form-control" mdbInput style="height: 190px;" formControlName="descripcion"></textarea>
-              
+
             </div>
         </div>
         <div class="row" style="margin-top: 3%">
@@ -63,13 +63,13 @@
             <span class="float-right"><button mat-raised-button class="base" color="primary" style="margin-left: 5px; width: 90px" (click)="obtenerFHIFHF()">Guardar</button></span>
           </div>
         </div>
-        
-        
+
+
       </form>
     </mat-step>
     <!--Paso de generacion de candidatos-->
     <mat-step>
-      
+
         <ng-template matStepLabel>Candidatos</ng-template>
         <div>
           <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" >
@@ -80,7 +80,7 @@
                   <mat-panel-title style="color: white">
                     Crear roles
                   </mat-panel-title>
-                  
+
                 </mat-expansion-panel-header>
                 <!--campos del desplegable-->
 
@@ -88,13 +88,13 @@
                     <mat-form-field>
                       <input matInput placeholder="* Rol del candidato" [(ngModel)]="rol">
                     </mat-form-field>
-                  
+
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <label for="form7" style="margin-top: 5%">Descripción</label>
                     <textarea type="text" id="form7" class="md-textarea form-control" mdbInput style="height: 150px;" [(ngModel)]="des"></textarea>
-                    <button mat-raised-button class="base" color="primary" style=" margin-top: 2%; margin-right: 1%" (click)="saveRol()">Guardar</button>
+                    <button mat-raised-button class="base" color="primary" style=" margin-top: 2%; margin-right: 1%" (click)="saveRol()">Insertar</button>
                     <button mat-raised-button class="base" color="primary" style=" margin-top: 2%" (click)="cancelEdit()" [disabled]="cancel">Cancelar</button>
                   </div>
                   <div class="col-md-6">
@@ -115,10 +115,10 @@
                           </tbody>
                         </table>
                       </cdk-virtual-scroll-viewport>
-                      
+
                   </div>
                 </div>
-                                  
+
               </mat-expansion-panel>
 
               <mat-expansion-panel >
@@ -127,14 +127,14 @@
                     <mat-panel-title style="color: white">
                       Ingresar candidatos
                     </mat-panel-title>
-                    
+
                   </mat-expansion-panel-header>
                   <!--campos del desplegable-->
-  
+
                   <div class="row" style="margin-top: 2%">
                     <div class="col-lg-4">
                       <mat-form-field style="padding-right: 2%">
-                        <input matInput placeholder="Código" [(ngModel)]="idUsuario">
+                        <input matInput placeholder="Código" [(ngModel)]="idUsuario" (keyup.enter)="getUsuario(idUsuario, null,'', 1, '')">
                       </mat-form-field>
                       <button mat-raised-button class="base" color="primary" (click)="getUsuario(idUsuario, null,'', 1, '')"><mat-icon>search</mat-icon></button>
                       <br>
@@ -146,15 +146,15 @@
                           <mat-select placeholder="* Escoja un rol"  name="opRol" [(ngModel)]="opRol"  style="margin-top: 10%">
                             <mat-option  *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</mat-option>
                           </mat-select>
-                          
+
                         </mat-form-field>
-                        
+
                       </div>
-                      <div> 
+                      <div>
                           * <button mat-raised-button class="base" color="primary" (click)="seleccionarImagen()" [disabled]="!isImgActivo">seleccionar imagen</button>
                           <mat-icon style="color: green;" *ngIf="itemSelected">done_outline</mat-icon>
                         </div>
-                    </div>  
+                    </div>
                     <div class="col-md-8">
                         <label for="form7" style="margin-top: 5%; font-size: 20px">Lista de roles</label>
                         <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-informacion3" >
@@ -166,7 +166,7 @@
                                     {{rol.rol}}
                                   </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                
+
                                     <table class="table">
                                       <thead class="thead-dark">
                                           <tr>
@@ -185,31 +185,36 @@
                                         </tr>
                                       </tbody>
                                     </table>
-                                  
-                              </mat-expansion-panel>  
+
+                              </mat-expansion-panel>
                             </mat-accordion>
                           </cdk-virtual-scroll-viewport>
                           <div>
-                              <button mat-raised-button color="primary" style="background: #2E3238; margin-top: 2%; margin-right: 1%" (click)="saveCandidato()">Guardar</button>
+                              <button class="base" mat-raised-button color="primary" style="margin-top: 2%; margin-right: 1%"
+                                (click)="saveCandidato()"
+                                [disabled]="!itemSelected">Insertar</button>
+                              <button class="base" mat-raised-button color="primary" style=" margin-top: 2%; margin-right: 1%"
+                                (click)="limpiarCandidato()"
+                                [disabled]="!(idU != null)">Cancelar</button>
                           </div>
                     </div>
                   </div>
-                  
-                                    
+
+
                 </mat-expansion-panel>
             </mat-accordion>
             </cdk-virtual-scroll-viewport>
         </div>
         <div *ngIf="flagImage">
-                
+
             <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" >
-        
+
                 <mat-radio-group aria-label="Select an option" [(ngModel)]="imgSeleccionada" >
                     <mat-radio-button *ngFor="let img of imagenes" [value]="img.imagen" (click)="elegirImagen()"><img [src]="img.imagen"  style="width: 150px; height: 150px; padding-right: 10px" ></mat-radio-button>
-                    
+
                 </mat-radio-group>
             </cdk-virtual-scroll-viewport>
-            
+
         </div>
         <div class="row" style="margin-top: 3%">
           <div class="col-md-3">
@@ -221,8 +226,8 @@
             <span class="float-right"><button mat-raised-button class="base" color="primary" style="margin-left: 5px; width: 90px" (click)="updateCandidatos()">Guardar</button></span>
           </div>
         </div>
-        
-      
+
+
     </mat-step>
     <!--Paso de seleccion de responsables-->
     <mat-step>
@@ -245,7 +250,7 @@
                     <button mat-raised-button class="base" color="primary" style=" margin-right: 20px" (click)="activarDesactivar(a)"><mat-icon>{{a.estado}}</mat-icon></button>
                   </td>
                 </tr>
-               
+
               </tbody>
             </table>
           </cdk-virtual-scroll-viewport>
@@ -255,7 +260,7 @@
               <input matInput placeholder="No. de puntos de votación" disabled [value]="noPV">
             </mat-form-field>
             <button mat-raised-button class="base" color="primary" (click)="sumarPV()"><mat-icon>add</mat-icon></button>
-            
+
           </div>
         </div>
         <div style="margin-top: 3%">
@@ -269,9 +274,8 @@
                 </div>
               </div>
           </div>
-    </mat-step>    
-  </mat-horizontal-stepper>  
-</div>  
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
  </div>
  <div class="footer-ce"></div>
- 

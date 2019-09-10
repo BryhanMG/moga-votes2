@@ -182,8 +182,12 @@
                                   </mat-expansion-panel>
                                 </mat-accordion>
                               </cdk-virtual-scroll-viewport>
-                              <button mat-raised-button color="primary" style="background: #2E3238; margin-top: 3%; margin-right: 1%" (click)="saveCandidato()">Guardar</button>
-                              <button mat-raised-button color="primary" style="background: #2E3238; margin-top: 3%; margin-right: 1%" (click)="limpiarDatosCandidato()">Cancelar</button>
+                              <button class="base" mat-raised-button color="primary" style="margin-top: 3%; margin-right: 1%"
+                                (click)="saveCandidato()"
+                                [disabled]="!itemSelected">Guardar</button>
+                              <button class="base" mat-raised-button color="primary" style="margin-top: 3%; margin-right: 1%"
+                                (click)="limpiarDatosCandidato()"
+                                [disabled]="!(idU != null)">Cancelar</button>
 
                         </div>
                       </div>

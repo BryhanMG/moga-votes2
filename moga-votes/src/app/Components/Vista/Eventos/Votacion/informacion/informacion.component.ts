@@ -100,7 +100,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
       .subscribe(res =>{
         this.listaEventos = res as EventoVotacion[];
         this.listaOpcion = res as EventoVotacion[];
-        console.log(this.listaEventos);
+        //console.log(this.listaEventos);
       });
   }
 
@@ -114,7 +114,7 @@ export class InformacionComponent implements OnInit, OnDestroy {
       });
   }
 
-  indentificarEstado(estado: string): String{
+  indentificarEstado(estado: string){
     this.estado = estado;
     if (estado === "A") {
       return "A";

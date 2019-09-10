@@ -9,8 +9,8 @@ import { Candidato } from 'src/app/Modelo/candidato';
 import { MaquinaVotacion } from 'src/app/Modelo/maquinaVotacion';
 
 import { VotacionService } from 'src/app/Servicios/votacion.service';
-import { BlockchainService } from "src/app/Servicios/blockchain.service";
-import { MaquinaVotacionService } from "src/app/Servicios/maquina-votacion.service";
+import { BlockchainService } from 'src/app/Servicios/blockchain.service';
+import { MaquinaVotacionService } from 'src/app/Servicios/maquina-votacion.service';
 import { CambiarPasswordDialogComponent } from 'src/app/Components/Vista/MisDialogs/cambiar-password-dialog/cambiar-password-dialog.component';
 import { User } from 'src/app/Modelo/user';
 import { UsuarioService } from 'src/app/Servicios/usuario.service';
@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu-sidenav.component.css']
 })
 export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy {
-  
+
   idUser: String;
   usuario: String;
   userLogged: User;
@@ -33,7 +33,7 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
   showHome: boolean = true;
   opened: true;
   opcion: number=0;
-  
+
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
 
   tiempo: Date;
@@ -90,7 +90,7 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
         //console.log(res);
         this.usuario = res['nombres'];
       });
-    
+
   }
 
   activarApartado(op: number){
@@ -109,11 +109,11 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
   }
 
   comprobarEventosEspera(){
-    
+
     this.votacionServicio.getEventosRevision( "E")
       .subscribe(res => {
         this.eventos = res as EventoVotacion[];
-        
+
         for (const evento of this.eventos) {
           var fechaI = new Date(evento.fecha_i.toString());
           var fechaF = new Date(evento.fecha_f.toString());
@@ -129,47 +129,42 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
         }
       });
 
-      this.votacionServicio.getEventosRevision( "A")
+      this.votacionServicio.getEventosRevision("A")
         .subscribe(res => {
           this.eventos = res as EventoVotacion[];
-          var fechaF = new Date();
-          
+          //console.log(res);
           for (const evento of this.eventos) {
-            fechaF.setFullYear(+evento.fecha_f.toString().substring(0, 4));
-            fechaF.setMonth((+evento.fecha_f.toString().substring(5, 7)-1));
-            fechaF.setDate((+evento.fecha_f.toString().substring(8, 10)));
-            fechaF.setHours(+evento.fecha_f.toString().substring(11, 13));
-            fechaF.setMinutes((+evento.fecha_f.toString().substring(14, 16)-1));
+            //console.log(evento);
+            let fechaF = new Date(evento.fecha_f.toString());
+            fechaF.setHours(fechaF.getHours()+6);
+            //console.log(fechaF);
+            //console.log(this.tiempo);
+            //console.log(fechaF <= this.tiempo);
             if ( fechaF <= this.tiempo) {
-              //console.log("Se termina el evento: ", evento.nombre_ev);
               evento.estado = "T";
               this.cambiarEstadoEvento(evento);
               this.actualizarMaquina(evento._id, "B");
             }
           }
-
-          
         });
 
-    
-    
-    
+
   }
 
   cambiarEstadoEvento(evento: EventoVotacion){
 
     this.votacionServicio.updateEstadoEvento(evento)
       .subscribe(res=>{
-        console.log(res);
+        //console.log(res);
       });
-    
+
     //
   }
 /*
   candidatosBC(idE: String){
     this.votacionServicio.getCandidatos(idE.toString())
       .subscribe(res =>{
-        this.candidatos = res as Candidato[]; 
+        this.candidatos = res as Candidato[];
         //console.log(this.candidatos);
         for (const rol of this.candidatos) {
           //console.log(rol);
@@ -178,10 +173,10 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
             this.blockchainService.postCandidato(can['_id'], idE, rol.rol)
               .subscribe(res => {
                 console.log(res);
-              });  
-            
+              });
+
           }
-            
+
         }
       });
   }*/
@@ -200,19 +195,19 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
         }
       });
 
-    
+
   }
 
   //Dialog para cambiar la contraseña del usuario
   passwordDialog(): void {
-    
+
     const dialogRef = this.dialog.open(CambiarPasswordDialogComponent, {
       data: {idUser: this.userLogged.username
         }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+
     });
   }
 }
