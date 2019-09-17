@@ -150,7 +150,12 @@ export class InformeComponent implements OnInit {
       format: [11, 8.5]
     });
     const id = this.idEvento;
-    doc.addHTML(this.informe.nativeElement, function() {
+
+    var options = {
+      pagesplit: true
+    };
+
+    doc.addHTML(this.informe.nativeElement, options, function() {
       doc.save('informe_'+id+'.pdf');
    });
 
