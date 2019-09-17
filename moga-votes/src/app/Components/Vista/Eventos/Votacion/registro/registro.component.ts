@@ -59,7 +59,8 @@ export class RegistroComponent implements OnInit {
   }
 
   addVotante(){
-    this.votacionService.getVotante(this.idEvento, this.idU)
+    if (this.idU != null) {
+      this.votacionService.getVotante(this.idEvento, this.idU)
       .subscribe(res =>{
         var vo: Votante;
         vo = res as Votante;
@@ -80,9 +81,10 @@ export class RegistroComponent implements OnInit {
           this.openSnackBar("Votante ya existe", "Cerrar")
         }
         
-      });
-      
-    
+      });  
+    }else{
+      this.openSnackBar("Sin información para registrar", "Cerrar");
+    }
   }
 
   

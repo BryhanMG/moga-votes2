@@ -10,7 +10,7 @@ import { MaquinaVotacionService } from "src/app/Servicios/maquina-votacion.servi
 import { EventoVotacion } from 'src/app/Modelo/eventoVotacion';
 import { Candidato } from 'src/app/Modelo/candidato';
 import { Usuario } from 'src/app/Modelo/usuario';
-import { Votante, SubUsuario } from 'src/app/Modelo/crearEdit'
+import { Votante, SubUsuario, ConexionBC } from 'src/app/Modelo/crearEdit'
 import { MaquinaVotacion } from 'src/app/Modelo/maquinaVotacion';
 import { CandidatoBC } from 'src/app/Modelo/modelosBC';
 
@@ -56,7 +56,7 @@ export class EmitirVotacionComponent implements OnInit {
   ngOnInit() {
     this.idEvento = this.route.snapshot.paramMap.get('id');
     this.noMaquina = this.route.snapshot.paramMap.get('no');
-    
+    this.obtenerIP();
   }
   
   validarVotante(){
@@ -153,6 +153,7 @@ export class EmitirVotacionComponent implements OnInit {
   //seleccion de candidato y emision de voto
   votosSeleccionado = [];
   
+  //funcion que guarda la eleccion del candidato para pasar a la siguiente candidatura
   siguiente(){
     //console.log(this.rolShow[0].count);
     
@@ -200,6 +201,10 @@ export class EmitirVotacionComponent implements OnInit {
     //console.log(this.votosSeleccionado);
   }
 
+//--------------------------------------------------------------------------
+  //----Acciones con red blockchain
+  //Emitir voto que ingresa activo en la red blockchain
+  ipConexionBC= new ConexionBC();
   emitirVotos(){
     
     //console.log(this.votosSeleccionado)
@@ -208,10 +213,12 @@ export class EmitirVotacionComponent implements OnInit {
       //console.log(voto.idV+" / "+ this.idEvento+" / "+ voto.rol+" / "+ voto.idC);
       
       //Insercion del voto del votante a la red blockcahin
-      this.blockchainService.postVoto(voto.idV, this.idEvento, voto.rol , voto.idC)
+      this.blockchainService.postVoto(voto.idV, this.idEvento, voto.rol , voto.idC, this.ipConexionBC.ip)
         .subscribe(res => {
-          console.log(res);
-          this.blockchainService.getTotal(voto.idC, this.idEvento)
+          //console.log(res);
+          console.log("Voto emitido");
+          
+          this.blockchainService.getTotal(voto.idC, this.idEvento, this.ipConexionBC.ip)
             .subscribe(res => {
               let lista = res as [];
               //console.log(lista);
@@ -255,6 +262,15 @@ export class EmitirVotacionComponent implements OnInit {
     
   }
 
+  obtenerIP(){
+    this.blockchainService.getConexionBC()
+      .subscribe(res => {
+        this.ipConexionBC = res[0] as ConexionBC;
+        //console.log(this.ipConexionBC);
+      });
+  }
+
+//---------------------------------------------------------------------------
   actualizarVotante(){//Actualizar el votante registrado en el evento de votación
     let vo = [{votantes: [this.votante]}];
     //console.log(vo);

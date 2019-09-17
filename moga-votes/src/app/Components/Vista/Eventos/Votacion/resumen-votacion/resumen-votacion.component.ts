@@ -58,6 +58,7 @@ export class ResumenVotacionComponent implements OnInit, OnDestroy {
     private usuarioService: UsuarioService,
     public dialog: MatDialog,
     
+    
   ) { 
     this.r1Subsciption = this.reloj.time.subscribe((now: Date) => {
       //this.tiempo = now;

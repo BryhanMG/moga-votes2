@@ -44,6 +44,7 @@ import { TerminarEventoDialogComponent } from "./Components/Vista/MisDialogs/ter
 import { ImportRegistrosDialogComponent } from "./Components/Vista/MisDialogs/import-registros-dialog/import-registros-dialog.component";
 import { EliminarImagenDialogComponent } from './Components/Vista/MisDialogs/eliminar-imagen-dialog/eliminar-imagen-dialog.component';
 import { InformeComponent } from './Components/Vista/Eventos/informe/informe.component';
+import { ConexionRedBcDialogComponent } from './Components/Vista/MisDialogs/conexion-red-bc-dialog/conexion-red-bc-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { InformeComponent } from './Components/Vista/Eventos/informe/informe.com
     TerminarEventoDialogComponent,
     ImportRegistrosDialogComponent,
     EliminarImagenDialogComponent,
-    InformeComponent
+    InformeComponent,
+    ConexionRedBcDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ import { InformeComponent } from './Components/Vista/Eventos/informe/informe.com
     CambiarPasswordDialogComponent,
     TerminarEventoDialogComponent,
     ImportRegistrosDialogComponent,
-    EliminarImagenDialogComponent
+    EliminarImagenDialogComponent,
+    ConexionRedBcDialogComponent
   ],
   providers: [
     {provide: LocationStrategy, useClass:HashLocationStrategy}

@@ -267,11 +267,8 @@ export class RegistroGeneralComponent implements OnInit {
       finalize(() => {
         referencia.getDownloadURL().subscribe(downloadURL => {
           //console.log('File available at', downloadURL);
-          
-          this.imagenField.nativeElement.value = '';
-          this.imgSrc = '../../../assets/imgs/image_preview.png';
+          this.limpiarUpload();
           this.opUpload = 2;
-
           this.imagenesService.postImagen(downloadURL)
             .subscribe(res => {
               //console.log(res);
@@ -280,6 +277,12 @@ export class RegistroGeneralComponent implements OnInit {
         }, error => {console.log(error)});
       })
     ).subscribe();
+    this.fSelected = true;
+  }
+
+  limpiarUpload(){
+    this.imagenField.nativeElement.value = '';
+    this.imgSrc = '../../../assets/imgs/image_preview.png';
     this.fSelected = true;
   }
 

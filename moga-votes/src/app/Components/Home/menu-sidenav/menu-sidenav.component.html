@@ -28,6 +28,10 @@
             <mat-icon>lock</mat-icon>
             <span>Cambiar contraseña</span>
           </button>
+          <button mat-menu-item *ngIf="userLogged.username === 'Admin'" (click)="conexionBCDialog()" >
+            <mat-icon>vpn_key</mat-icon>
+            <span>Add IP externa BC</span>
+          </button>
           <button mat-menu-item (click)="cerrarSesion()">
             <mat-icon>settings_power</mat-icon>
             <span>Cerrar Sesión</span>

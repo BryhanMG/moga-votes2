@@ -16,6 +16,7 @@ import { User } from 'src/app/Modelo/user';
 import { UsuarioService } from 'src/app/Servicios/usuario.service';
 import { UserService } from 'src/app/Servicios/user.service';
 import { Router } from '@angular/router';
+import { ConexionRedBcDialogComponent } from '../../Vista/MisDialogs/conexion-red-bc-dialog/conexion-red-bc-dialog.component';
 
 
 
@@ -203,6 +204,19 @@ export class MenuSidenavComponent extends CrearEdit implements OnInit, OnDestroy
 
     const dialogRef = this.dialog.open(CambiarPasswordDialogComponent, {
       data: {idUser: this.userLogged.username
+        }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+  //Dialog para cambiar ip externa de conexion a la red Blockchain
+  conexionBCDialog(): void {
+
+    const dialogRef = this.dialog.open(ConexionRedBcDialogComponent, {
+      data: {
         }
     });
 

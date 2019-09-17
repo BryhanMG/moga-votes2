@@ -56,14 +56,14 @@
             <div class="col-md-6"  style="margin-top: 2%" *ngFor="let candidato of rol.arreglo">
 
               <button mat-raised-button style="width: 100%; " (click)="seleccionar(candidato._id)" *ngIf="candidato.flag == false; else seleccionado">
-                <div ><h3>{{candidato.nombres}} {{candidato.apellidos}}</h3></div>
-                <div class="col-6 "><img [src]="candidato.imagen" style="width: 250; height: 250px; padding: 10%"></div>
+                <div ><h4>{{candidato.nombres}} {{candidato.apellidos}}</h4></div>
+                <div class="col-10 offset-1"><img [src]="candidato.imagen" style="width: 100%; height: 100%; padding: 10%"></div>
 
               </button>
               <ng-template #seleccionado>
                   <button mat-raised-button style="width: 100%; background: #2E3238; color: #FFFFFF" >
-                      <div ><h3>{{candidato.nombres}} {{candidato.apellidos}}</h3></div>
-                      <div class="col-6 " ><img [src]="candidato.imagen" style="width: 220%; height: 280px; padding: 10%"></div>
+                      <div ><h4>{{candidato.nombres}} {{candidato.apellidos}}</h4></div>
+                      <div class="col-10 offset-1" ><img [src]="candidato.imagen" style="width: 100%; height: 100%; padding: 10%"></div>
 
                     </button>
               </ng-template>
@@ -75,10 +75,23 @@
 
 
           <div class="container" style="padding-top: 2%;">
-              <button mat-raised-button class="base" color="primary" (click)="anterior()" *ngIf="rolShow[0].count != 0">Anterior</button>
-              <span class="float-right"><button mat-raised-button class="base" color="primary" (click)="siguiente() " *ngIf="rolShow[0].count != (totalRoles-1); else finalizar" [disabled]="flagVoto">Siguiente</button></span>
+              <button mat-raised-button class="base" color="primary" (click)="anterior()" 
+                style="width: 130px; height: 80px;"
+                *ngIf="rolShow[0].count != 0"> <h5>Anterior</h5> </button>
+
+              <span class="float-right">
+                <button mat-raised-button class="base" color="primary" (click)="siguiente()"
+                style="width: 130px; height: 80px;" 
+                *ngIf="rolShow[0].count != (totalRoles-1); else finalizar" 
+                [disabled]="flagVoto"> <h5>Siguiente</h5> </button>
+              </span>
               <ng-template #finalizar>
-                  <span class="float-right"><button mat-raised-button class="base" color="primary" (click)="emitirVotos()" [disabled]="flagVoto">Emitir voto</button></span>
+                  <span class="float-right">
+                    <button mat-raised-button class="base" color="primary" 
+                    style="width: 130px; height: 80px;"
+                    (click)="emitirVotos()" 
+                    [disabled]="flagVoto"> <h5>Emitir voto</h5> </button>
+                  </span>
               </ng-template>
             </div>
         </div>

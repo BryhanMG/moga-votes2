@@ -127,4 +127,13 @@ constructor(id_ev: String, rol: String, descripcion: String, candidatos: Array<O
 }
 }
 
+export class ConexionBC {
+    _id: String;
+    ip: String;
+    constructor() {
+      this._id = "";
+      this.ip = "";
+    }
+  }
+
 

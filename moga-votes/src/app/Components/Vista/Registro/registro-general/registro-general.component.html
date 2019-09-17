@@ -102,10 +102,16 @@
             <p *ngIf="fErrorSize" style="color: crimson">Imagen excede el tamaño máximo</p>
             <input #imageIn type="file" accept="image/*" (change)="showPreview($event)">
           </div>
-          <button mat-raised-button color="primary" class="button-size" style="width: 140px; margin-top: 2%" 
+          <button mat-raised-button color="primary" class="button-size" style="width: 150px; margin-top: 2%" 
             (click)="uploadImage()" 
             [disabled]="fSelected">Subir imagen</button>
           <mat-icon style="color: green; font-size: 35px" *ngIf="opUpload == 2">done_outline</mat-icon>
+          <br>
+          <button mat-raised-button color="primary" class="button-size" style="width: 150px; margin-top: 2%" 
+            (click)="limpiarUpload()" 
+            [disabled]="fSelected">Cancelar</button>
+          
+          
         </div>
         <div class="col-lg-7">
           <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport-principal">

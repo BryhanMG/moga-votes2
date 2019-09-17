@@ -1,0 +1,15 @@
+<h4>Definir IP externa Blockchain</h4>
+<mat-divider></mat-divider>
+<p>Defina la IP externa a la que se conectará para establecer<br>
+comunicación con la red Blockchain.</p>
+<p>IP actual: {{ipConexionBC['ip']}}</p>
+<mat-form-field>
+    <input matInput placeholder="IP externa" [(ngModel)]="ip">
+</mat-form-field>
+<mat-divider style="margin-bottom: 2%"></mat-divider>
+<button mat-raised-button color="primary" 
+    style="width: 100px; margin-right: 2%"
+    (click)="actualizarIP()">Definir</button>
+<button mat-raised-button color="primary" 
+    style="width: 100px"
+    (click)="onNoClick()">Cerrar</button>
